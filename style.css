@@ -185,3 +185,153 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #000; b
     .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
     .gallery-title { font-size: 20px; }
 }
+
+
+/* === WINGO STYLE BLUE SHOWCASE SECTION === */
+.blue-showcase {
+    background: linear-gradient(135deg, #2b3990 0%, #1e2875 100%);
+    color: #ffffff;
+    padding: 120px 5%;
+    position: relative;
+    overflow: hidden;
+}
+.showcase-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+.showcase-visual {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.showcase-visual-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #000;
+}
+.showcase-visual-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s ease;
+}
+.showcase-visual-wrap:hover img {
+    transform: scale(1.04);
+}
+.showcase-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 229, 181, 0.95);
+    color: #000;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(0, 229, 181, 0.4);
+}
+.showcase-content {
+    flex: 1;
+    max-width: 600px;
+}
+.showcase-title {
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: #ffffff;
+    position: relative;
+    display: inline-block;
+}
+.showcase-sub {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 40px;
+    line-height: 1.6;
+    word-break: keep-all;
+}
+.showcase-tags {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 45px;
+    flex-wrap: wrap;
+}
+.showcase-tag {
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    cursor: default;
+    transition: 0.3s;
+}
+.showcase-tag.active {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+    box-shadow: 0 10px 25px rgba(0, 229, 181, 0.35);
+}
+.spec-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.spec-card-item {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    padding: 24px 20px;
+    transition: 0.3s;
+}
+.spec-card-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+.spec-card-item h4 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.spec-card-item p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+@media (max-width: 992px) {
+    .showcase-container {
+        flex-direction: column;
+        gap: 50px;
+    }
+    .showcase-visual, .showcase-content {
+        max-width: 100%;
+        width: 100%;
+    }
+    .showcase-title {
+        font-size: 32px;
+    }
+    .spec-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
