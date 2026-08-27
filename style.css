@@ -85,7 +85,7 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 .back-btn { display: inline-block; padding: 15px 35px; border: 2px solid #000; border-radius: 30px; color: #000; font-weight: 700; transition: 0.3s; margin-right: 10px; }
 .back-btn:hover { background: #000; color: #fff; }
 
-/* === NEW: Detail Page Gallery Section === */
+/* === Detail Page Gallery Section === */
 .gallery-section { max-width: 1200px; margin: 0 auto 120px; padding: 0 5%; }
 .gallery-title { font-size: 24px; font-weight: 800; margin-bottom: 30px; padding-bottom: 10px; border-bottom: 2px solid #000; display: inline-block; color: #000; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
@@ -110,3 +110,46 @@ input, select, textarea { width: 100%; padding: 18px; background: #f8f9fa; borde
 input:focus, select:focus, textarea:focus { outline: none; border-color: #000; background: #fff; }
 .submit-btn { width: 100%; padding: 20px; background: #000; color: #fff; font-size: 18px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
 .submit-btn:hover { background: #333; }
+
+/* =========================================
+   📱 MOBILE RESPONSIVE (스마트폰 최적화) 
+   ========================================= */
+@media (max-width: 768px) {
+    /* Navigation */
+    nav { flex-direction: column; justify-content: center; height: auto; padding: 15px 0; gap: 15px; }
+    .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; width: 100%; }
+    .nav-links a { font-size: 13px; }
+    .nav-links a.quote-btn { display: none; } /* 모바일에서는 견적 버튼 숨김(공간 확보) */
+    
+    /* Hero Section */
+    .hero h1 { font-size: 40px; }
+    .hero h2 { font-size: 16px; }
+    .hero p { font-size: 15px; margin-bottom: 20px; }
+    
+    /* Layout Adjustments */
+    .section, .section.bg-gray { padding: 80px 20px; }
+    .section-title { font-size: 28px; margin-bottom: 10px; }
+    .section-subtitle { font-size: 15px; margin-bottom: 40px; }
+    
+    /* Grids (1 column on mobile to prevent horizontal scrolling) */
+    .features-grid { grid-template-columns: 1fr; }
+    .frame-grid { grid-template-columns: 1fr; gap: 40px; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    
+    /* Form */
+    .contact-container { padding: 30px 20px; }
+
+    /* Frame Mockups */
+    .frame-mockup { max-width: 260px; height: 380px; }
+
+    /* Detail Pages */
+    .detail-section { padding: 160px 20px 60px; flex-direction: column; gap: 40px; }
+    .detail-img-box, .detail-text-box { min-width: 100%; width: 100%; } /* 강제 너비 해제 */
+    .detail-img-box { min-height: 400px; }
+    .detail-text-box h2 { font-size: 30px; }
+    .detail-text-box p { font-size: 16px; margin-bottom: 30px; }
+    
+    /* Detail Gallery (2 columns on mobile) */
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .gallery-title { font-size: 20px; }
+}
