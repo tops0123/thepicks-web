@@ -8,7 +8,7 @@
     --text-dim: #555555;
     --border-color: #eaeaea;
     --highlight: #fef08a;
-    --accent: #00E5B5; /* Wingo 스타일의 민트색 포인트 컬러 */
+    --accent: #E60012; /* 시그니처 레드 포인트 */ /* Wingo 스타일의 민트색 포인트 컬러 */
 }
 
 /* 스무스 스크롤 적용 */
@@ -42,7 +42,7 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 
 /* Highlight */
 .highlight { background: linear-gradient(180deg, rgba(255,255,255,0) 50%, var(--highlight) 50%); font-weight: 700; color: #000; padding: 0 4px; }
-.highlight-mint { color: var(--accent); font-weight: 900; }
+.highlight-accent { color: var(--accent); font-weight: 900; }
 
 /* === NEW: Wingo-Style Dark Process Section === */
 .dark-process { background: #111; color: #fff; padding: 120px 5%; text-align: center; position: relative; overflow: hidden; }
@@ -54,8 +54,8 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 
 .process-flex { display: flex; justify-content: center; align-items: flex-start; flex-wrap: nowrap; }
 .process-item { display: flex; flex-direction: column; align-items: center; width: 160px; }
-.process-item .num { width: 60px; height: 60px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 25px; transition: 0.4s; box-shadow: 0 0 0 rgba(0,229,181,0); }
-.process-item:hover .num { background: var(--accent); border-color: var(--accent); color: #000; transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 229, 181, 0.3); }
+.process-item .num { width: 60px; height: 60px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 25px; transition: 0.4s; box-shadow: 0 0 0 rgba(230, 0, 18,0); }
+.process-item:hover .num { background: var(--accent); border-color: var(--accent); color: #000; transform: translateY(-10px); box-shadow: 0 15px 30px rgba(230, 0, 18, 0.3); }
 .process-item p { font-size: 16px; color: #ccc; line-height: 1.5; font-weight: 600; word-break: keep-all; transition: 0.4s;}
 .process-item:hover p { color: #fff; }
 .process-line { flex: 1; height: 1px; background: rgba(255,255,255,0.15); margin: 30px 10px 0; max-width: 100px; }
@@ -189,7 +189,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #000; b
 
 /* === WINGO STYLE BLUE SHOWCASE SECTION === */
 .blue-showcase {
-    background: linear-gradient(135deg, #2b3990 0%, #1e2875 100%);
+    background: linear-gradient(135deg, #1f1f1f 0%, #000000 100%);
     color: #ffffff;
     padding: 120px 5%;
     position: relative;
@@ -233,14 +233,14 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #000; b
     position: absolute;
     top: 20px;
     left: 20px;
-    background: rgba(0, 229, 181, 0.95);
+    background: rgba(230, 0, 18, 0.95);
     color: #000;
     padding: 8px 18px;
     border-radius: 20px;
     font-size: 13px;
     font-weight: 800;
     letter-spacing: 1px;
-    box-shadow: 0 8px 20px rgba(0, 229, 181, 0.4);
+    box-shadow: 0 8px 20px rgba(230, 0, 18, 0.4);
 }
 .showcase-content {
     flex: 1;
@@ -283,7 +283,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #000; b
     background: var(--accent);
     color: #000;
     border-color: var(--accent);
-    box-shadow: 0 10px 25px rgba(0, 229, 181, 0.35);
+    box-shadow: 0 10px 25px rgba(230, 0, 18, 0.35);
 }
 .spec-cards-grid {
     display: grid;
@@ -334,4 +334,76 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #000; b
     .spec-cards-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* === DEVICE SPEC SECTION === */
+.spec-container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px 0; }
+.spec-images { display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 0; padding-bottom: 20px; border-bottom: 1px solid #333; }
+.spec-device { text-align: center; flex: 1; }
+.spec-device-img { height: 250px; display: flex; justify-content: center; align-items: flex-end; margin-bottom: 15px; }
+.spec-device-img img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.spec-device-img .img-placeholder { width: 100px; height: 230px; background: #eee; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #999; margin: 0 auto;}
+.spec-device-img .img-placeholder.mini { height: 140px; width: 110px; }
+.spec-device h4 { font-size: 16px; font-weight: 500; color: #888; letter-spacing: -0.5px; }
+
+.spec-table { width: 100%; border-collapse: collapse; }
+.spec-table th, .spec-table td { border-bottom: 1px solid #f0f0f0; padding: 20px 10px; text-align: left; font-size: 16px; color: #666; }
+.spec-table th { width: 25%; font-weight: 800; color: #111; vertical-align: top; text-align: center; }
+.spec-table td { line-height: 1.6; }
+.spec-table tr:last-child th, .spec-table tr:last-child td { border-bottom: 1px solid #333; }
+
+.size-split { display: flex; gap: 40px; }
+.size-col { display: flex; flex-direction: column; }
+.size-col span { display: inline-block; color: #888; }
+
+@media (max-width: 768px) {
+    .spec-images { gap: 10px; }
+    .spec-device-img { height: 150px; }
+    .spec-device-img .img-placeholder { width: 70px; height: 140px; }
+    .spec-device-img .img-placeholder.mini { width: 80px; height: 100px; }
+    .spec-device h4 { font-size: 14px; }
+    .spec-table th { width: 35%; font-size: 15px; padding: 15px 0; }
+    .spec-table td { font-size: 14px; padding: 15px 5px; }
+    .size-split { flex-direction: column; gap: 10px; }
+}
+
+/* Logo Point Color */
+.logo-red { color: var(--accent); }
+
+/* Update showcase tags to match the red theme */
+.showcase-tag {
+    padding: 12px 26px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    background: #111;
+    border: 1px solid #333;
+    color: #ffffff; /* 글씨체 화이트로 수정 */
+    cursor: default;
+    transition: 0.3s;
+}
+.showcase-tag.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 10px 25px rgba(230, 0, 18, 0.35);
+}
+
+/* Fix missing image alt box layout issue */
+.showcase-visual-wrap {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+}
+.showcase-visual-wrap img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
