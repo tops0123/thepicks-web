@@ -3,29 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE PICKS | 프리미엄 포토부스</title>
+    <title>THE PICKS | 프리미엄 렌탈 솔루션</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav>
-        <a href="index.html" class="logo">THE PICKS</a>
+        <a href="#top" class="logo">THE PICKS</a>
         <div class="nav-links">
-            <a href="index.html" class="active">포토부스</a>
-            <a href="game.html">게임 키오스크</a>
-            <a href="ai.html">AI 사주</a>
+            <a href="#photobooth">포토부스</a>
+            <a href="#game">게임 키오스크</a>
+            <a href="#ai">AI 사주</a>
             <a href="#contact" class="quote-btn">GET QUOTE</a>
         </div>
     </nav>
 
-    <header class="hero">
-        <h2>완벽한 순간은 영원한 작품이 됩니다.</h2>
-        <h1>PREMIER<br>PHOTO BOOTH</h1>
-        <p>단순한 사진 촬영을 넘어 당신의 빛나는 찰나를 감각적인 작품으로 완성합니다.<br>트렌디한 감각과 독보적인 기술력이 만난 <span class="highlight">하이엔드 포토부스 렌탈 솔루션</span>입니다.</p>
+    <!-- 메인 히어로 -->
+    <header id="top" class="hero">
+        <h2>행사의 가치를 높이는 완벽한 마스터피스</h2>
+        <h1>PREMIER<br>RENTAL SOLUTION</h1>
+        <p>포토부스부터 게임, AI 사주까지.<br>당신의 공간을 사람들의 웃음과 참여로 가득 채우는 <span class="highlight">하이엔드 키오스크 렌탈 솔루션</span>입니다.</p>
     </header>
 
-    <section class="section">
+    <!-- WINGO 스타일 프로세스/장점 섹션 -->
+    <section class="dark-process">
+        <div class="process-content">
+            <h2 class="process-title">더 이상 고민 없이<span class="point-mark">ㄱ</span></h2>
+            <p class="process-sub">전문가가 제안하는 <span class="highlight-mint">최적의 절차, 최고의 효율</span>을 경험해보세요.</p>
+            
+            <div class="process-flex">
+                <div class="process-item">
+                    <div class="num">1</div>
+                    <p>맞춤형 기기<br>렌탈 컨설팅</p>
+                </div>
+                <div class="process-line"></div>
+                
+                <div class="process-item">
+                    <div class="num">2</div>
+                    <p>브랜드 맞춤<br>UI/UX 커스텀</p>
+                </div>
+                <div class="process-line"></div>
+                
+                <div class="process-item">
+                    <div class="num">3</div>
+                    <p>전문 엔지니어<br>현장 세팅</p>
+                </div>
+                <div class="process-line"></div>
+                
+                <div class="process-item">
+                    <div class="num">4</div>
+                    <p>안정적인<br>다중 네트워크 운영</p>
+                </div>
+                <div class="process-line"></div>
+                
+                <div class="process-item">
+                    <div class="num">5</div>
+                    <p>실시간 이벤트 DB<br>통합 관리</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. PHOTO BOOTH SECTION -->
+    <section id="photobooth" class="section">
+        <div class="category-divider">
+            <h2>PHOTO BOOTH</h2>
+        </div>
         <h2 class="section-title">CORE VALUES</h2>
-        <p class="section-subtitle">성공적인 행사를 보장하는 더픽스만의 전문성</p>
+        <p class="section-subtitle">성공적인 행사를 보장하는 더픽스만의 포토부스 전문성</p>
         <div class="features-grid">
             <div class="feature-card">
                 <h3>01. FLAWLESS SYSTEM</h3>
@@ -54,14 +98,13 @@
         </div>
     </section>
 
-    <!-- NEW: FRAME STYLES SECTION WITH LINKS -->
+    <!-- FRAME STYLES (In Photo Booth) -->
     <section class="section bg-gray">
         <div class="section-inner">
             <h2 class="section-title">FRAME STYLES</h2>
             <p class="section-subtitle">클릭하여 각 프레임 모드의 상세 디자인을 확인해 보세요.</p>
             
             <div class="frame-grid">
-                <!-- Basic Frame Link -->
                 <a href="frame_basic.html" class="frame-link">
                     <div class="frame-info">
                         <div class="frame-mockup basic">
@@ -76,7 +119,6 @@
                     </div>
                 </a>
 
-                <!-- AI Design Frame Link -->
                 <a href="frame_ai.html" class="frame-link">
                     <div class="frame-info">
                         <div class="frame-mockup design">
@@ -90,7 +132,6 @@
                     </div>
                 </a>
 
-                <!-- Collage Frame Link -->
                 <a href="frame_collage.html" class="frame-link">
                     <div class="frame-info">
                         <div class="frame-mockup collage">
@@ -106,27 +147,95 @@
         </div>
     </section>
 
-    <section class="section">
-        <h2 class="section-title">PORTFOLIO</h2>
-        <p class="section-subtitle">수많은 브랜드가 선택한 THE PICKS의 특별한 무대</p>
-        <div class="portfolio-grid">
-            <div class="portfolio-item">
-                <img src="1000057480.jpg" alt="팝업스토어 렌탈">
-                <div class="portfolio-info">
-                    <h3>브랜드 팝업스토어</h3>
-                    <p>아메리칸 투어리스터 맞춤 랩핑 기기 운영</p>
-                </div>
+
+    <!-- 2. GAME KIOSK SECTION -->
+    <section id="game" class="section">
+        <div class="category-divider">
+            <h2>GAME KIOSK</h2>
+        </div>
+        <h2 class="section-title">INTERACTIVE FEATURES</h2>
+        <p class="section-subtitle">발길을 멈추고 손끝으로 참여하는 최강의 디지털 놀이터</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>01. 초대형 몰입형 스크린</h3>
+                <ul class="feature-list">
+                    <li>인간의 시야각에 최적화된 <span class="highlight">초대형 수직 풀화면 스크린 탑재</span>로 시선 압도</li>
+                    <li>초고감도 멀티 터치 센서 적용으로 남녀노소 누구나 부드럽고 정교한 플레이 가능</li>
+                </ul>
             </div>
-            <div class="portfolio-item">
-                <img src="1000057479.jpg" alt="기업 행사 렌탈">
-                <div class="portfolio-info">
-                    <h3>대규모 기업 행사</h3>
-                    <p>안정적인 다중 네트워크 시스템 구축</p>
+            <div class="feature-card">
+                <h3>02. 체류시간 극대화 효과</h3>
+                <ul class="feature-list">
+                    <li>단순 영상 및 이미지 송출 기기 대비 <span class="highlight">압도적인 고객 체류 시간 연장</span> 효과</li>
+                    <li>게임 몰입을 통한 자연스러운 브랜드 각인 및 세일즈 기회 창출</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>03. 실시간 영수증 연동</h3>
+                <ul class="feature-list">
+                    <li>게임 종료 시 <span class="highlight">실시간 즉석 경품 교환권(영수증) 출력</span> 모듈 연동</li>
+                    <li>티켓에 로고 엠블럼 및 바코드를 맞춤 인쇄하여 매끄러운 이벤트 운영과 고객 DB 확보</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section bg-gray">
+        <div class="section-inner">
+            <h2 class="section-title">CUSTOM GAMES</h2>
+            <p class="section-subtitle">브랜드 로고 및 제품 이미지 삽입이 가능한 다양한 맞춤형 라인업</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="1000057479.jpg" alt="이벤트 게임">
+                    <div class="portfolio-info">
+                        <h3>이벤트 & 럭키 드로우</h3>
+                        <p>룰렛, 사다리, 슬롯머신 등 확률 기반 경품 이벤트</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="1000057481.jpg" alt="아케이드 게임">
+                    <div class="portfolio-info">
+                        <h3>아케이드 & 퍼즐</h3>
+                        <p>짝 맞추기, 순간포착, 숨은그림찾기, 타임어택 등 몰입형 게임</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- 3. AI FORTUNE SECTION -->
+    <section id="ai" class="section">
+        <div class="category-divider">
+            <h2>AI FORTUNE</h2>
+        </div>
+        <h2 class="section-title">AI PROCESS</h2>
+        <p class="section-subtitle">단 3초 만에 완성되는 나만의 운세</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>01. INPUT</h3>
+                <ul class="feature-list">
+                    <li>사용자의 이름과 생년월일, 태어난 시간을 화면에 간단하게 터치 입력</li>
+                    <li>남녀노소 누구나 쉽게 이용 가능한 직관적인 UI 제공</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>02. ANALYSIS</h3>
+                <ul class="feature-list">
+                    <li>명리학 빅데이터가 탑재된 자체 AI 프로그램의 <span class="highlight">실시간 정밀 분석</span></li>
+                    <li>빠른 처리 속도로 대기 인원 없이 원활한 행사 회전율 보장</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>03. PRINT</h3>
+                <ul class="feature-list">
+                    <li>행사 맞춤형 커스텀 디자인 프레임에 운세 결과 즉시 출력</li>
+                    <li>영수증 또는 <span class="highlight">고화질 인화지 형태</span>로 제공하여 만족도 극대화</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
     <section id="contact" class="section bg-gray">
         <div class="contact-container">
             <h2 class="section-title" style="margin-bottom: 10px;">GET A QUOTE</h2>
@@ -139,6 +248,15 @@
                 <div class="form-group">
                     <label style="font-weight:600; display:block; margin-bottom:8px;">담당자 연락처</label>
                     <input type="text" placeholder="성함 및 연락처를 남겨주세요">
+                </div>
+                <div class="form-group">
+                    <label style="font-weight:600; display:block; margin-bottom:8px;">문의 서비스</label>
+                    <select>
+                        <option>전체 패키지 렌탈</option>
+                        <option>포토부스 렌탈</option>
+                        <option>게임 키오스크 렌탈</option>
+                        <option>AI 사주 렌탈</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label style="font-weight:600; display:block; margin-bottom:8px;">상세 내용</label>

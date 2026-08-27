@@ -8,7 +8,11 @@
     --text-dim: #555555;
     --border-color: #eaeaea;
     --highlight: #fef08a;
+    --accent: #00E5B5; /* Wingo 스타일의 민트색 포인트 컬러 */
 }
+
+/* 스무스 스크롤 적용 */
+html { scroll-behavior: smooth; }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
 body { background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
@@ -25,14 +29,12 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 
 /* Hero */
 .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; background: radial-gradient(circle, #ffffff 0%, #f4f4f4 100%); }
-.hero.game-hero { background: radial-gradient(circle, #f0f4f8 0%, #ffffff 100%); }
-.hero.ai-hero { background: radial-gradient(circle, #f9f6f0 0%, #ffffff 100%); }
 .hero h2 { font-size: 22px; font-weight: 600; margin-bottom: 15px; color: var(--text-dim); }
 .hero h1 { font-size: 4.5vw; font-weight: 900; line-height: 1.2; margin-bottom: 30px; letter-spacing: -1px; color: #000; }
 .hero p { font-size: 18px; color: var(--text-dim); max-width: 650px; margin-bottom: 40px; word-break: keep-all; }
 
 /* Sections */
-.section { padding: 120px 5%; max-width: 1400px; margin: 0 auto; }
+.section { padding: 120px 5%; max-width: 1400px; margin: 0 auto; scroll-margin-top: 80px; } /* 헤더 높이만큼 스크롤 여백 */
 .section.bg-gray { background-color: var(--bg-sec); max-width: 100%; padding: 120px 5%; }
 .section-inner { max-width: 1400px; margin: 0 auto; }
 .section-title { font-size: 40px; font-weight: 800; margin-bottom: 15px; color: #000; }
@@ -40,6 +42,24 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 
 /* Highlight */
 .highlight { background: linear-gradient(180deg, rgba(255,255,255,0) 50%, var(--highlight) 50%); font-weight: 700; color: #000; padding: 0 4px; }
+.highlight-mint { color: var(--accent); font-weight: 900; }
+
+/* === NEW: Wingo-Style Dark Process Section === */
+.dark-process { background: #111; color: #fff; padding: 120px 5%; text-align: center; position: relative; overflow: hidden; }
+.dark-process::before { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background: radial-gradient(circle at center, rgba(50,50,50,0.5) 0%, #111 70%); z-index: 1; }
+.process-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; }
+.process-title { font-size: 36px; font-weight: 900; color: #fff; margin-bottom: 15px; display: inline-block; position: relative; }
+.point-mark { color: var(--accent); position: absolute; top: -15px; right: -25px; font-size: 30px; line-height: 1; font-family: sans-serif; }
+.process-sub { font-size: 18px; color: #aaa; margin-bottom: 80px; }
+
+.process-flex { display: flex; justify-content: center; align-items: flex-start; flex-wrap: nowrap; }
+.process-item { display: flex; flex-direction: column; align-items: center; width: 160px; }
+.process-item .num { width: 60px; height: 60px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 25px; transition: 0.4s; box-shadow: 0 0 0 rgba(0,229,181,0); }
+.process-item:hover .num { background: var(--accent); border-color: var(--accent); color: #000; transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 229, 181, 0.3); }
+.process-item p { font-size: 16px; color: #ccc; line-height: 1.5; font-weight: 600; word-break: keep-all; transition: 0.4s;}
+.process-item:hover p { color: #fff; }
+.process-line { flex: 1; height: 1px; background: rgba(255,255,255,0.15); margin: 30px 10px 0; max-width: 100px; }
+
 
 /* Features Grid */
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
@@ -99,10 +119,14 @@ nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify
 .portfolio-item { position: relative; border-radius: 15px; overflow: hidden; aspect-ratio: 4/5; border: 1px solid var(--border-color); cursor: pointer; background: #fff; }
 .portfolio-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s ease; }
 .portfolio-item:hover img { filter: grayscale(0%); transform: scale(1.05); }
-.portfolio-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 30px; background: linear-gradient(transparent, rgba(255,255,255,0.95) 40%, #ffffff 100%); transform: translateY(20px); opacity: 0; transition: 0.4s; }
+.portfolio-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 30px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); transform: translateY(20px); opacity: 0; transition: 0.4s; }
 .portfolio-item:hover .portfolio-info { transform: translateY(0); opacity: 1; }
-.portfolio-info h3 { font-size: 24px; margin-bottom: 5px; color: #000; font-weight: 800; }
-.portfolio-info p { color: #555; font-size: 15px; font-weight: 600; }
+.portfolio-info h3 { font-size: 24px; margin-bottom: 5px; color: #fff; font-weight: 800; }
+.portfolio-info p { color: #ccc; font-size: 15px; font-weight: 500; }
+
+/* Title Divider for One Page Sections */
+.category-divider { text-align: center; margin: 60px 0; }
+.category-divider h2 { font-size: 50px; font-weight: 900; color: #000; letter-spacing: -1px; display: inline-block; border-bottom: 4px solid var(--accent); padding-bottom: 10px;}
 
 /* Form */
 .contact-container { background: #ffffff; padding: 60px; border-radius: 20px; border: 1px solid var(--border-color); max-width: 800px; margin: 0 auto; box-shadow: 0 20px 50px rgba(0,0,0,0.03); }
@@ -119,22 +143,30 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #000; b
     nav { flex-direction: column; justify-content: center; height: auto; padding: 15px 0; gap: 15px; }
     .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; width: 100%; }
     .nav-links a { font-size: 13px; }
-    .nav-links a.quote-btn { display: none; } /* 모바일에서는 견적 버튼 숨김(공간 확보) */
+    .nav-links a.quote-btn { display: none; }
     
     /* Hero Section */
     .hero h1 { font-size: 40px; }
     .hero h2 { font-size: 16px; }
     .hero p { font-size: 15px; margin-bottom: 20px; }
     
+    /* Wingo Process Mobile */
+    .process-title { font-size: 26px; }
+    .point-mark { top: -10px; right: -15px; font-size: 20px; }
+    .process-sub { font-size: 15px; margin-bottom: 40px; }
+    .process-flex { flex-direction: column; align-items: center; }
+    .process-item { width: 100%; margin-bottom: 10px; }
+    .process-item .num { width: 50px; height: 50px; font-size: 18px; margin-bottom: 15px; }
+    .process-line { width: 1px; height: 40px; margin: 10px 0 20px 0; background: rgba(255,255,255,0.2); }
+    
     /* Layout Adjustments */
     .section, .section.bg-gray { padding: 80px 20px; }
     .section-title { font-size: 28px; margin-bottom: 10px; }
     .section-subtitle { font-size: 15px; margin-bottom: 40px; }
+    .category-divider h2 { font-size: 32px; }
     
-    /* Grids (1 column on mobile to prevent horizontal scrolling) */
-    .features-grid { grid-template-columns: 1fr; }
-    .frame-grid { grid-template-columns: 1fr; gap: 40px; }
-    .portfolio-grid { grid-template-columns: 1fr; }
+    /* Grids */
+    .features-grid, .frame-grid, .portfolio-grid { grid-template-columns: 1fr; gap: 40px; }
     
     /* Form */
     .contact-container { padding: 30px 20px; }
@@ -144,12 +176,12 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #000; b
 
     /* Detail Pages */
     .detail-section { padding: 160px 20px 60px; flex-direction: column; gap: 40px; }
-    .detail-img-box, .detail-text-box { min-width: 100%; width: 100%; } /* 강제 너비 해제 */
+    .detail-img-box, .detail-text-box { min-width: 100%; width: 100%; }
     .detail-img-box { min-height: 400px; }
     .detail-text-box h2 { font-size: 30px; }
     .detail-text-box p { font-size: 16px; margin-bottom: 30px; }
     
-    /* Detail Gallery (2 columns on mobile) */
+    /* Detail Gallery */
     .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
     .gallery-title { font-size: 20px; }
 }
