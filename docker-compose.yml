@@ -1,0 +1,22 @@
+name: thepicks-homepage
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: thepicks-homepage
+    restart: unless-stopped
+    init: true
+    ports:
+      - "8088:8000"
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+    environment:
+      TZ: Asia/Seoul
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m

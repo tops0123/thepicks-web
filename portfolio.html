@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포트폴리오 | THE PICKS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html#top" class="logo"><span class="logo-red">T</span>HE <span class="logo-red">P</span>ICKS</a>
+        <div class="nav-links"><a href="index.html#photobooth">포토부스 소개</a><a href="index.html#game">게임 키오스크</a><a href="index.html#ai">AI 사주</a><a href="index.html#contact" class="quote-btn">상담 문의하기</a></div>
+    </nav>
+    <main class="portfolio-page">
+        <span class="hero-label" style="color:var(--accent);">PORTFOLIO</span>
+        <h1 class="section-title">더픽스 행사 현장</h1>
+        <div class="portfolio-filters" id="portfolioFilters">
+            <button type="button" data-category="all">전체</button>
+            <button type="button" data-category="photobooth">포토부스</button>
+            <button type="button" data-category="game">게임 키오스크</button>
+            <button type="button" data-category="saju">AI 사주</button>
+        </div>
+        <div class="portfolio-4grid" id="allPortfolio"><p class="portfolio-loading">사진을 불러오고 있습니다.</p></div>
+    </main>
+    <script src="portfolio.js" defer></script>
+</body>
+</html>
