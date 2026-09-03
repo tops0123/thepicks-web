@@ -3,8 +3,9 @@
     const $ = (selector) => document.querySelector(selector);
     const $$ = (selector) => [...document.querySelectorAll(selector)];
     const categoryNames = { photobooth: '포토부스', game: '게임 키오스크', saju: 'AI 사주' };
-    let data = { site: {}, portfolio: [], inquiries: [] };
+    let data = { site: {}, frames: {}, portfolio: [], inquiries: [] };
     let activeCategory = 'all';
+    let activeFrame = 'basic';
 
     async function request(url, options = {}) {
         const response = await fetch(url, { cache: 'no-store', ...options });
@@ -49,6 +50,7 @@
     async function loadData() {
         data = await request('/api/admin/data');
         fillSiteForm();
+        renderFrameManager();
         renderPosts();
         renderInquiries();
     }
@@ -86,8 +88,22 @@
     function fillSiteForm() {
         const form = $('#siteForm');
         ['hero_eyebrow','hero_title','hero_accent','hero_description'].forEach((name) => form.elements[name].value = data.site[name] || '');
-        const preview = $('#heroPreview');
-        if (data.site.hero_image) preview.src = data.site.hero_image; else preview.removeAttribute('src');
+        renderHeroSlides();
+    }
+
+    function heroSlides() {
+        return Array.isArray(data.site?.hero_slides) ? data.site.hero_slides : [];
+    }
+
+    function renderHeroSlides() {
+        const slides = heroSlides();
+        $('#heroSlideCount').textContent = `${slides.length} / 5장`;
+        const list = $('#heroSlideList');
+        if (!slides.length) {
+            list.innerHTML = '<div class="hero-slide-empty">등록된 슬라이드 사진이 없습니다.</div>';
+            return;
+        }
+        list.innerHTML = slides.map((item, index) => `<article class="hero-slide-card" data-id="${escapeAttr(item.id)}"><img src="${escapeAttr(item.image)}" alt="슬라이드 사진 ${index + 1}"><span>${index + 1}번</span><button type="button" data-hero-slide-delete aria-label="슬라이드 사진 삭제">×</button></article>`).join('');
     }
 
     function bindFilePreview(input, preview) {
@@ -97,20 +113,138 @@
             preview.src = URL.createObjectURL(file);
         });
     }
-    bindFilePreview($('#siteForm input[type="file"]'), $('#heroPreview'));
     bindFilePreview($('#postForm input[type="file"]'), $('#postPreview'));
+    bindFilePreview($('#frameMainForm input[type="file"]'), $('#frameMainPreview'));
+
+    const heroSlideInput = $('#siteForm input[name="hero_slides"]');
+    heroSlideInput.addEventListener('change', () => {
+        const selected = heroSlideInput.files.length;
+        const total = heroSlides().length + selected;
+        $('#heroSlideSelection').textContent = selected ? `${selected}장 선택됨 · 저장 후 총 ${total}장` : '선택된 사진 없음';
+        if (total > 5) message($('#siteStatus'), `현재 사진을 포함해 최대 5장만 등록할 수 있습니다. ${5 - heroSlides().length}장 이하로 선택해 주세요.`, 'error');
+    });
 
     $('#siteForm').addEventListener('submit', async (event) => {
         event.preventDefault();
-        const button = event.currentTarget.querySelector('button[type="submit"]');
+        const form = event.currentTarget;
+        const files = [...heroSlideInput.files];
+        if (heroSlides().length + files.length > 5) return message($('#siteStatus'), `슬라이드 사진은 최대 5장입니다. 지금은 ${5 - heroSlides().length}장까지 더 등록할 수 있습니다.`, 'error');
+        const button = form.querySelector('button[type="submit"]');
         button.disabled = true;
         message($('#siteStatus'), '저장 중입니다...');
         try {
-            data = await request('/api/admin/site', { method: 'POST', body: new FormData(event.currentTarget) });
+            const textData = new FormData(form);
+            textData.delete('hero_slides');
+            data = await request('/api/admin/site', { method: 'POST', body: textData });
+            for (let index = 0; index < files.length; index += 1) {
+                message($('#siteStatus'), `${files.length}장 중 ${index + 1}번째 사진을 등록하고 있습니다...`);
+                const imageData = new FormData();
+                imageData.append('image', files[index]);
+                data = await request('/api/admin/hero-slide', { method: 'POST', body: imageData });
+            }
+            heroSlideInput.value = '';
+            $('#heroSlideSelection').textContent = '선택된 사진 없음';
             fillSiteForm();
-            message($('#siteStatus'), '메인 화면이 저장되었습니다.', 'success');
+            const count = heroSlides().length;
+            message($('#siteStatus'), count < 2 ? '문구가 저장되었습니다. 슬라이드 작동을 위해 사진을 2장 이상 등록해 주세요.' : `메인 화면과 슬라이드 사진 ${count}장이 저장되었습니다.`, count < 2 ? '' : 'success');
         } catch (error) { message($('#siteStatus'), error.message, 'error'); }
         finally { button.disabled = false; }
+    });
+
+    $('#heroSlideList').addEventListener('click', async (event) => {
+        const button = event.target.closest('[data-hero-slide-delete]');
+        if (!button) return;
+        const card = button.closest('.hero-slide-card');
+        if (!confirm('이 슬라이드 사진을 삭제할까요?')) return;
+        try {
+            data = await request(`/api/admin/hero-slide?id=${encodeURIComponent(card.dataset.id)}`, { method:'DELETE' });
+            renderHeroSlides();
+            message($('#siteStatus'), '슬라이드 사진이 삭제되었습니다.', 'success');
+        } catch (error) { message($('#siteStatus'), error.message, 'error'); }
+    });
+
+    function currentFrame() {
+        return data.frames?.[activeFrame] || { main_image:'', gallery:[] };
+    }
+
+    function renderFrameManager() {
+        const frame = currentFrame();
+        $('#frameMainForm').elements.frame_type.value = activeFrame;
+        $('#frameGalleryForm').elements.frame_type.value = activeFrame;
+        const preview = $('#frameMainPreview');
+        if (frame.main_image) preview.src = frame.main_image; else preview.removeAttribute('src');
+        const list = $('#frameGalleryList');
+        const images = Array.isArray(frame.gallery) ? frame.gallery : [];
+        if (!images.length) {
+            list.innerHTML = '<div class="empty-state">등록된 샘플 사진이 없습니다.</div>';
+            return;
+        }
+        list.innerHTML = images.map((item, index) => `<article class="frame-gallery-card" data-id="${item.id}"><img src="${escapeAttr(item.image)}" alt="샘플 사진 ${index + 1}"><span class="frame-gallery-number">${index + 1}</span><button type="button" data-frame-image-delete aria-label="샘플 사진 삭제">×</button></article>`).join('');
+    }
+
+    $('#frameAdminTabs').addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-frame]');
+        if (!button) return;
+        activeFrame = button.dataset.frame;
+        $$('#frameAdminTabs button').forEach((item) => item.classList.toggle('active', item === button));
+        $('#frameMainForm').reset();
+        $('#frameGalleryForm').reset();
+        $('#selectedGalleryCount').textContent = '선택된 사진 없음';
+        message($('#frameStatus'), '');
+        renderFrameManager();
+    });
+
+    $('#frameMainForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const button = event.currentTarget.querySelector('button[type="submit"]');
+        button.disabled = true;
+        message($('#frameStatus'), '대표사진을 저장하고 있습니다...');
+        try {
+            data = await request('/api/admin/frame-main', {method:'POST', body:new FormData(event.currentTarget)});
+            event.currentTarget.reset();
+            renderFrameManager();
+            message($('#frameStatus'), '대표사진이 저장되었습니다.', 'success');
+        } catch (error) { message($('#frameStatus'), error.message, 'error'); }
+        finally { button.disabled = false; }
+    });
+
+    const galleryFileInput = $('#frameGalleryForm input[type="file"]');
+    galleryFileInput.addEventListener('change', () => {
+        $('#selectedGalleryCount').textContent = galleryFileInput.files.length ? `${galleryFileInput.files.length}장 선택됨` : '선택된 사진 없음';
+    });
+
+    $('#frameGalleryForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const files = [...galleryFileInput.files];
+        if (!files.length) return message($('#frameStatus'), '등록할 샘플 사진을 선택해 주세요.', 'error');
+        const button = event.currentTarget.querySelector('button[type="submit"]');
+        button.disabled = true;
+        try {
+            for (let index = 0; index < files.length; index += 1) {
+                message($('#frameStatus'), `${files.length}장 중 ${index + 1}장을 등록하고 있습니다...`);
+                const formData = new FormData();
+                formData.append('frame_type', activeFrame);
+                formData.append('image', files[index]);
+                data = await request('/api/admin/frame-gallery', {method:'POST', body:formData});
+            }
+            event.currentTarget.reset();
+            $('#selectedGalleryCount').textContent = '선택된 사진 없음';
+            renderFrameManager();
+            message($('#frameStatus'), `${files.length}장의 샘플 사진이 등록되었습니다.`, 'success');
+        } catch (error) { message($('#frameStatus'), error.message, 'error'); }
+        finally { button.disabled = false; }
+    });
+
+    $('#frameGalleryList').addEventListener('click', async (event) => {
+        const button = event.target.closest('[data-frame-image-delete]');
+        if (!button) return;
+        const card = button.closest('.frame-gallery-card');
+        if (!confirm('이 샘플 사진을 삭제할까요?')) return;
+        try {
+            data = await request(`/api/admin/frame-gallery?frame=${encodeURIComponent(activeFrame)}&id=${encodeURIComponent(card.dataset.id)}`, {method:'DELETE'});
+            renderFrameManager();
+            message($('#frameStatus'), '샘플 사진이 삭제되었습니다.', 'success');
+        } catch (error) { message($('#frameStatus'), error.message, 'error'); }
     });
 
     function openPostEditor(item = null) {

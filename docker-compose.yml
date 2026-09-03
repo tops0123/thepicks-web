@@ -5,16 +5,20 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        APP_VERSION: "13"
     container_name: thepicks-homepage
     restart: unless-stopped
     init: true
     ports:
       - "8088:8000"
     volumes:
+      - ./:/app:ro
       - ./data:/app/data
       - ./uploads:/app/uploads
     environment:
       TZ: Asia/Seoul
+      APP_VERSION: "13"
     security_opt:
       - no-new-privileges:true
     read_only: true

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE PICKS 관리자</title>
-    <link rel="stylesheet" href="admin.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <link rel="stylesheet" href="admin.css?v=9">
 </head>
 <body>
     <header class="admin-header">
@@ -47,12 +48,13 @@
 
             <nav class="admin-tabs" aria-label="관리 메뉴">
                 <button type="button" class="active" data-tab="site">메인 화면</button>
+                <button type="button" data-tab="frames">인화 프레임</button>
                 <button type="button" data-tab="portfolio">사진·게시글</button>
                 <button type="button" data-tab="inquiries">견적 문의</button>
             </nav>
 
             <section id="tab-site" class="tab-panel">
-                <div class="panel-heading"><div><h2>메인 화면 수정</h2><p>첫 화면의 문구와 대표 사진을 바꿀 수 있습니다.</p></div></div>
+                <div class="panel-heading"><div><h2>메인 화면 수정</h2><p>첫 화면 문구와 책장처럼 천천히 넘어가는 슬라이드 사진을 관리합니다.</p></div></div>
                 <form id="siteForm" class="editor-card" enctype="multipart/form-data">
                     <div class="editor-grid">
                         <div class="fields">
@@ -61,15 +63,52 @@
                             <label>빨간색 강조 제목<input name="hero_accent" maxlength="60"></label>
                             <label>소개 문구<textarea name="hero_description" rows="4" maxlength="300"></textarea></label>
                         </div>
-                        <div class="upload-box">
-                            <img id="heroPreview" alt="현재 대표 사진 미리보기">
-                            <label class="file-button">대표 사진 선택<input type="file" name="hero_image" accept="image/jpeg,image/png,image/webp"></label>
-                            <small>JPG, PNG, WEBP / 최대 8MB</small>
+                        <div class="hero-slide-manager">
+                            <div class="hero-slide-heading"><strong>첫 화면 슬라이드 사진</strong><span id="heroSlideCount">0 / 5장</span></div>
+                            <div id="heroSlideList" class="hero-slide-list"></div>
+                            <label class="file-button">사진 2~5장 선택<input type="file" name="hero_slides" accept="image/jpeg,image/png,image/webp" multiple></label>
+                            <span id="heroSlideSelection">선택된 사진 없음</span>
+                            <small>JPG, PNG, WEBP / 사진당 최대 8MB<br>최대 5장까지 등록되며 약 4초마다 책장처럼 넘어갑니다. 사진의 × 버튼으로 삭제할 수 있습니다.</small>
                         </div>
                     </div>
-                    <button type="submit" class="primary-button">메인 화면 저장</button>
+                    <button type="submit" class="primary-button">문구와 슬라이드 저장</button>
                     <p id="siteStatus" class="status" aria-live="polite"></p>
                 </form>
+            </section>
+
+            <section id="tab-frames" class="tab-panel" hidden>
+                <div class="panel-heading">
+                    <div><h2>맞춤형 인화 프레임 관리</h2><p>각 프레임의 대표사진과 샘플 갤러리 사진을 관리합니다.</p></div>
+                </div>
+                <div class="frame-admin-tabs" id="frameAdminTabs">
+                    <button type="button" class="active" data-frame="basic">베이직</button>
+                    <button type="button" data-frame="ai">AI 디자인</button>
+                    <button type="button" data-frame="collage">콜라주</button>
+                </div>
+
+                <div class="frame-manager">
+                    <section class="frame-manager-block">
+                        <div><h3>대표사진</h3><p>메인 화면의 프레임 카드와 상세 페이지 상단에 함께 표시됩니다.</p></div>
+                        <form id="frameMainForm" enctype="multipart/form-data" class="frame-main-form">
+                            <input type="hidden" name="frame_type" value="basic">
+                            <div class="frame-main-preview"><img id="frameMainPreview" alt="현재 프레임 대표사진"><span id="frameMainEmpty">등록된 대표사진이 없습니다.</span></div>
+                            <label class="file-button">대표사진 선택<input type="file" name="main_image" accept="image/jpeg,image/png,image/webp" required></label>
+                            <button type="submit" class="primary-button">대표사진 저장</button>
+                        </form>
+                    </section>
+
+                    <section class="frame-manager-block">
+                        <div><h3>샘플 갤러리</h3><p>여러 장을 한 번에 선택할 수 있습니다. 홈페이지에는 한 페이지에 9장씩 표시됩니다.</p></div>
+                        <form id="frameGalleryForm" enctype="multipart/form-data" class="gallery-upload-form">
+                            <input type="hidden" name="frame_type" value="basic">
+                            <label class="file-button">샘플 사진 선택<input type="file" name="gallery_images" accept="image/jpeg,image/png,image/webp" multiple required></label>
+                            <span id="selectedGalleryCount">선택된 사진 없음</span>
+                            <button type="submit" class="primary-button">선택 사진 등록</button>
+                        </form>
+                        <p id="frameStatus" class="status" aria-live="polite"></p>
+                        <div id="frameGalleryList" class="frame-gallery-list"></div>
+                    </section>
+                </div>
             </section>
 
             <section id="tab-portfolio" class="tab-panel" hidden>
@@ -114,6 +153,6 @@
             </section>
         </section>
     </main>
-    <script src="admin.js" defer></script>
+    <script src="admin.js?v=9" defer></script>
 </body>
 </html>

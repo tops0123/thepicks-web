@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>콜라주 프레임 | THE PICKS</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=9">
 </head>
-<body>
+<body data-frame-type="collage">
     <nav>
         <a href="index.html#top" class="logo"><span class="logo-red">T</span>HE <span class="logo-red">P</span>ICKS</a>
         <div class="nav-links">
@@ -20,13 +20,13 @@
             </div>
             <a href="index.html#game">게임 키오스크</a>
             <a href="index.html#ai">AI 사주</a>
-            <a href="index.html#portfolio">포트폴리오</a>
+            <a href="/portfolio.html">포트폴리오</a>
             <a href="index.html#contact" class="quote-btn">상담 문의하기</a>
         </div>
     </nav>
 
     <section class="detail-section">
-        <div class="detail-img-box">
+        <div class="detail-img-box" id="frameMainImage">
             <div class="detail-img-placeholder">
                 여기에 <strong>콜라주 프레임 메인 사진</strong>을<br>업로드하여 교체할 수 있습니다.<br><br>예: &lt;img src="my_collage_frame.jpg"&gt;
             </div>
@@ -40,7 +40,7 @@
 
     <section class="gallery-section">
         <h3 class="gallery-title">콜라주 프레임 샘플 갤러리</h3>
-        <div class="gallery-grid">
+        <div class="gallery-grid" id="frameGallery">
             <div class="gallery-item"><div class="gallery-placeholder">
                         <span style="font-size:16px; color:#888; font-weight:600;">여기에 사진 업로드</span><br>
                         <span style="font-size:14px; color:#ccc; font-weight:400;">&lt;img src="collage_sample_1.jpg"&gt;</span>
@@ -70,6 +70,12 @@
                         <span style="font-size:14px; color:#ccc; font-weight:400;">&lt;img src="collage_sample_9.jpg"&gt;</span>
                     </div></div>
         </div>
+        <div class="gallery-pagination" id="galleryPagination" hidden>
+            <button type="button" id="galleryPrev" aria-label="이전 사진 페이지">&lt;</button>
+            <span id="galleryPageInfo">1 / 1</span>
+            <button type="button" id="galleryNext" aria-label="다음 사진 페이지">&gt;</button>
+        </div>
     </section>
+    <script src="frame-gallery.js?v=9" defer></script>
 </body>
 </html>

@@ -43,7 +43,15 @@ DEFAULT_CONTENT = {
         "hero_title": "프리미엄",
         "hero_accent": "포토부스 대여",
         "hero_description": "다년간의 이벤트 기획·진행 노하우와 축적된 운영 경험으로 특별한 순간을 더욱 특별하게 만들어 드립니다.",
-        "hero_image": "photobooth_white.jpg"
+        "hero_image": "photobooth_white.jpg",
+        "hero_slides": [
+            {"id":"default-hero","image":"photobooth_white.jpg","created_at":""}
+        ]
+    },
+    "frames": {
+        "basic": {"main_image":"", "gallery":[]},
+        "ai": {"main_image":"", "gallery":[]},
+        "collage": {"main_image":"", "gallery":[]}
     },
     "portfolio": [
         {"id":"photo-1","category":"photobooth","title":"기업 행사","summary":"브랜드 프로모션","image":"port_1.jpg","created_at":"2026-09-02 16:00"},
@@ -77,6 +85,27 @@ def read_json(path: Path, default):
             return json.load(stream)
     except (OSError, json.JSONDecodeError):
         return default
+
+
+def load_content() -> dict:
+    content = read_json(CONTENT_FILE, {})
+    if not isinstance(content, dict):
+        content = {}
+    for section in ("site", "frames", "portfolio"):
+        if section not in content:
+            content[section] = json.loads(json.dumps(DEFAULT_CONTENT[section], ensure_ascii=False))
+    if not isinstance(content.get("frames"), dict):
+        content["frames"] = {}
+    site = content.setdefault("site", {})
+    if not isinstance(site.get("hero_slides"), list):
+        legacy_image = site.get("hero_image", "")
+        site["hero_slides"] = [{"id":"legacy-hero","image":legacy_image,"created_at":""}] if legacy_image else []
+    site["hero_slides"] = [item for item in site["hero_slides"] if isinstance(item, dict) and item.get("image")][:5]
+    for frame_type in ("basic", "ai", "collage"):
+        frame = content["frames"].setdefault(frame_type, {})
+        frame.setdefault("main_image", "")
+        frame.setdefault("gallery", [])
+    return content
 
 
 def write_json(path: Path, value) -> None:
@@ -161,17 +190,33 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "SAMEORIGIN")
         self.send_header("Referrer-Policy", "strict-origin-when-cross-origin")
+        path = urlparse(self.path).path.lower()
+        if path == "/" or path.endswith((".html", ".css", ".js")):
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+            self.send_header("Pragma", "no-cache")
         super().end_headers()
 
     def do_HEAD(self):
+        if urlparse(self.path).path in {"/portfolio", "/portfolio/"}:
+            self.send_response(HTTPStatus.FOUND)
+            self.send_header("Location", "/portfolio.html")
+            self.end_headers()
+            return
         if self._protected_path():
             return self.send_error(HTTPStatus.NOT_FOUND)
         super().do_HEAD()
 
     def do_GET(self):
         path = urlparse(self.path).path
+        if path in {"/portfolio", "/portfolio/"}:
+            self.send_response(HTTPStatus.FOUND)
+            self.send_header("Location", "/portfolio.html")
+            self.end_headers()
+            return
         if path == "/api/content":
-            return self._json(HTTPStatus.OK, read_json(CONTENT_FILE, DEFAULT_CONTENT))
+            return self._json(HTTPStatus.OK, load_content())
+        if path == "/api/version":
+            return self._json(HTTPStatus.OK, {"version": "13", "hero_slides": True, "page_turn": True, "fixed_photo_frame": True})
         if path == "/api/admin/status":
             return self._json(HTTPStatus.OK, {"configured": ADMIN_FILE.exists(), "authenticated": self._authenticated()})
         if path == "/api/admin/data":
@@ -190,6 +235,9 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
             if path == "/api/admin/logout": return self._logout()
             if path.startswith("/api/admin/") and not self._require_auth(): return
             if path == "/api/admin/site": return self._save_site()
+            if path == "/api/admin/hero-slide": return self._save_hero_slide()
+            if path == "/api/admin/frame-main": return self._save_frame_main()
+            if path == "/api/admin/frame-gallery": return self._save_frame_gallery()
             if path == "/api/admin/portfolio": return self._save_portfolio()
             if path == "/api/admin/inquiry-status": return self._save_inquiry_status()
             self._json(HTTPStatus.NOT_FOUND, {"message": "요청한 기능을 찾을 수 없습니다."})
@@ -200,13 +248,29 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
 
     def do_DELETE(self):
         path = urlparse(self.path).path
-        if path != "/api/admin/portfolio": return self._json(HTTPStatus.NOT_FOUND, {"message":"요청한 기능을 찾을 수 없습니다."})
+        if path not in {"/api/admin/portfolio", "/api/admin/frame-gallery", "/api/admin/hero-slide"}: return self._json(HTTPStatus.NOT_FOUND, {"message":"요청한 기능을 찾을 수 없습니다."})
         if not self._require_auth(): return
-        item_id = parse_qs(urlparse(self.path).query).get("id", [""])[0]
-        content = read_json(CONTENT_FILE, DEFAULT_CONTENT)
-        item = next((entry for entry in content["portfolio"] if entry.get("id") == item_id), None)
-        if not item: return self._json(HTTPStatus.NOT_FOUND, {"message":"삭제할 글을 찾을 수 없습니다."})
-        content["portfolio"] = [entry for entry in content["portfolio"] if entry.get("id") != item_id]
+        query = parse_qs(urlparse(self.path).query)
+        item_id = query.get("id", [""])[0]
+        content = load_content()
+        if path == "/api/admin/portfolio":
+            item = next((entry for entry in content["portfolio"] if entry.get("id") == item_id), None)
+            if not item: return self._json(HTTPStatus.NOT_FOUND, {"message":"삭제할 글을 찾을 수 없습니다."})
+            content["portfolio"] = [entry for entry in content["portfolio"] if entry.get("id") != item_id]
+        elif path == "/api/admin/frame-gallery":
+            frame_type = query.get("frame", [""])[0]
+            if frame_type not in {"basic", "ai", "collage"}: return self._json(HTTPStatus.BAD_REQUEST, {"message":"프레임 종류를 확인해 주세요."})
+            gallery = content["frames"][frame_type]["gallery"]
+            item = next((entry for entry in gallery if entry.get("id") == item_id), None)
+            if not item: return self._json(HTTPStatus.NOT_FOUND, {"message":"삭제할 사진을 찾을 수 없습니다."})
+            content["frames"][frame_type]["gallery"] = [entry for entry in gallery if entry.get("id") != item_id]
+        else:
+            slides = content["site"].get("hero_slides", [])
+            item = next((entry for entry in slides if entry.get("id") == item_id), None)
+            if not item: return self._json(HTTPStatus.NOT_FOUND, {"message":"삭제할 슬라이드 사진을 찾을 수 없습니다."})
+            remaining = [entry for entry in slides if entry.get("id") != item_id]
+            content["site"]["hero_slides"] = remaining
+            content["site"]["hero_image"] = remaining[0].get("image", "") if remaining else ""
         write_json(CONTENT_FILE, content)
         delete_uploaded_image(item.get("image", ""))
         self._json(HTTPStatus.OK, self._all_data())
@@ -277,8 +341,8 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
         return False
 
     def _all_data(self) -> dict:
-        content = read_json(CONTENT_FILE, DEFAULT_CONTENT)
-        return {"site": content.get("site", {}), "portfolio": content.get("portfolio", []), "inquiries": read_json(INQUIRY_FILE, [])}
+        content = load_content()
+        return {"site": content.get("site", {}), "frames": content.get("frames", {}), "portfolio": content.get("portfolio", []), "inquiries": read_json(INQUIRY_FILE, [])}
 
     def _setup_admin(self):
         if ADMIN_FILE.exists(): return self._json(HTTPStatus.CONFLICT, {"message":"이미 관리자 비밀번호가 설정되어 있습니다."})
@@ -308,16 +372,53 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
         self._json(HTTPStatus.OK, {"ok":True}, {"Set-Cookie":f"thepicks_admin=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0{secure}"})
 
     def _save_site(self):
-        fields, files = self._read_multipart()
-        content = read_json(CONTENT_FILE, DEFAULT_CONTENT)
+        fields, _files = self._read_multipart()
+        content = load_content()
         site = content.setdefault("site", {})
         for name, maximum in {"hero_eyebrow":60,"hero_title":60,"hero_accent":60,"hero_description":300}.items():
             site[name] = clean_text(fields.get(name), maximum, True)
-        new_image = save_image(files.get("hero_image"))
-        if new_image:
-            old_image = site.get("hero_image", "")
-            site["hero_image"] = new_image
-            delete_uploaded_image(old_image)
+        write_json(CONTENT_FILE, content)
+        self._json(HTTPStatus.OK, self._all_data())
+
+    def _save_hero_slide(self):
+        _fields, files = self._read_multipart()
+        content = load_content()
+        slides = content["site"].setdefault("hero_slides", [])
+        if len(slides) >= 5:
+            raise ValueError("슬라이드 사진은 최대 5장까지 등록할 수 있습니다.")
+        new_image = save_image(files.get("image"))
+        if not new_image:
+            raise ValueError("등록할 슬라이드 사진을 선택해 주세요.")
+        slides.append({"id":uuid.uuid4().hex,"image":new_image,"created_at":now_text()})
+        content["site"]["hero_image"] = slides[0]["image"]
+        write_json(CONTENT_FILE, content)
+        self._json(HTTPStatus.OK, self._all_data())
+
+    def _frame_type(self, fields: dict) -> str:
+        frame_type = clean_text(fields.get("frame_type"), 20, True)
+        if frame_type not in {"basic", "ai", "collage"}:
+            raise ValueError("프레임 종류를 확인해 주세요.")
+        return frame_type
+
+    def _save_frame_main(self):
+        fields, files = self._read_multipart()
+        frame_type = self._frame_type(fields)
+        new_image = save_image(files.get("main_image"))
+        if not new_image: raise ValueError("등록할 대표사진을 선택해 주세요.")
+        content = load_content()
+        old_image = content["frames"][frame_type].get("main_image", "")
+        content["frames"][frame_type]["main_image"] = new_image
+        write_json(CONTENT_FILE, content)
+        delete_uploaded_image(old_image)
+        self._json(HTTPStatus.OK, self._all_data())
+
+    def _save_frame_gallery(self):
+        fields, files = self._read_multipart()
+        frame_type = self._frame_type(fields)
+        new_image = save_image(files.get("image"))
+        if not new_image: raise ValueError("등록할 샘플 사진을 선택해 주세요.")
+        content = load_content()
+        content["frames"][frame_type]["gallery"].append({"id":uuid.uuid4().hex,"image":new_image,"created_at":now_text()})
         write_json(CONTENT_FILE, content)
         self._json(HTTPStatus.OK, self._all_data())
 
@@ -328,7 +429,7 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
         item_id = clean_text(fields.get("id"), 80)
         title = clean_text(fields.get("title"), 80, True)
         summary = clean_text(fields.get("summary"), 160, True)
-        content = read_json(CONTENT_FILE, DEFAULT_CONTENT)
+        content = load_content()
         posts = content.setdefault("portfolio", [])
         existing = next((item for item in posts if item.get("id") == item_id), None) if item_id else None
         new_image = save_image(files.get("image"))

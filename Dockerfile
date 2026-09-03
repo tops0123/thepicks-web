@@ -1,8 +1,12 @@
 FROM python:3.12-alpine
 
+ARG APP_VERSION=13
+LABEL com.thepicks.homepage.version="${APP_VERSION}"
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    TZ=Asia/Seoul
+    TZ=Asia/Seoul \
+    APP_VERSION=${APP_VERSION}
 
 WORKDIR /app
 COPY . /app

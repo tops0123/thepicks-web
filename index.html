@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE PICKS | 프리미엄 렌탈 솔루션</title>
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
     <!-- Navbar (White Theme + Dropdown) -->
@@ -21,7 +22,7 @@
             </div>
             <a href="index.html#game">게임 키오스크</a>
             <a href="index.html#ai">AI 사주</a>
-            <a href="index.html#portfolio">포트폴리오</a>
+            <a href="/portfolio.html?v=13" id="mainPortfolioLink">포트폴리오</a>
             <a href="#quote-form" class="quote-btn open-quote-form">상담 문의하기</a>
         </div>
     </nav>
@@ -38,8 +39,12 @@
             </div>
         </div>
         <div class="hero-img">
-            <img id="heroImage" src="photobooth_white.jpg" alt="더픽스 포토부스" onerror="this.style.display='none'; document.getElementById('heroImageFallback').style.display='flex'">
-            <div id="heroImageFallback" class="hero-image-fallback">대표 이미지<br>관리자에서 업로드</div>
+            <div class="hero-media-frame">
+                <div id="heroPageA" class="hero-page is-active"><img id="heroImage" src="photobooth_white.jpg" alt="더픽스 포토부스"></div>
+                <div id="heroPageB" class="hero-page"><img id="heroImageNext" alt="" aria-hidden="true"></div>
+                <div id="heroSlideDots" class="hero-slide-dots" aria-label="메인 사진 선택"></div>
+                <div id="heroImageFallback" class="hero-image-fallback">대표 이미지<br>관리자에서 업로드</div>
+            </div>
         </div>
     </header>
 
@@ -138,7 +143,7 @@
         <p class="section-subtitle" style="text-align:center;">클릭하여 각 프레임 모드의 상세 디자인을 확인해 보세요.</p>
         
         <div class="frame-grid">
-            <a href="frame_basic.html" class="frame-link">
+            <a href="frame_basic.html" class="frame-link" data-frame-card="basic">
                 <div class="frame-info">
                     <div class="frame-mockup basic">
                         <div class="photo-area"></div>
@@ -151,7 +156,7 @@
                     <p>깔끔한 프레임과 배경으로<br>우리의 가장 빛나는 순간을 기록합니다.</p>
                 </div>
             </a>
-            <a href="frame_ai.html" class="frame-link">
+            <a href="frame_ai.html" class="frame-link" data-frame-card="ai">
                 <div class="frame-info">
                     <div class="frame-mockup design">
                         <div class="photo-area"></div>
@@ -163,7 +168,7 @@
                     <p>최신 AI 기능을 적용하여 내 맘대로<br>AR 배경과 이모티콘을 조합해 보세요.</p>
                 </div>
             </a>
-            <a href="frame_collage.html" class="frame-link">
+            <a href="frame_collage.html" class="frame-link" data-frame-card="collage">
                 <div class="frame-info">
                     <div class="frame-mockup collage">
                         <div class="photo-area main-cut"></div>
@@ -422,7 +427,7 @@
         </div>
     </div>
 
-    <script src="app.js" defer></script>
+    <script src="app.js?v=13" defer></script>
 
 </body>
 </html>
