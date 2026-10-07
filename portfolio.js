@@ -7,8 +7,8 @@
     const next = document.getElementById('portfolioNext');
     const pageInfo = document.getElementById('portfolioPageInfo');
     const resultCount = document.getElementById('portfolioResultCount');
-    const allowedCategories = ['photobooth', 'game', 'saju'];
-    const categoryNames = {photobooth:'포토부스', game:'게임 키오스크', saju:'AI 사주'};
+    const allowedCategories = ['photobooth', 'game', 'saju', 'mosaic'];
+    const categoryNames = {photobooth:'포토부스', game:'게임 키오스크', saju:'AI 사주', mosaic:'모자이크 월'};
     const pageSize = 16;
     let items = [];
     let category = new URLSearchParams(location.search).get('category') || 'photobooth';

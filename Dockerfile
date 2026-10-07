@@ -1,6 +1,6 @@
 FROM python:3.12-alpine
 
-ARG APP_VERSION=13
+ARG APP_VERSION=22
 LABEL com.thepicks.homepage.version="${APP_VERSION}"
 
 ENV PYTHONDONTWRITEBYTECODE=1 \

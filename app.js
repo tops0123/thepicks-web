@@ -25,6 +25,9 @@
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && modal && !modal.hidden) closeModal();
     });
+    if (new URLSearchParams(window.location.search).get('quote') === '1') {
+        window.setTimeout(() => openModal(), 0);
+    }
 
     form?.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -88,6 +91,7 @@
         const pageB = document.getElementById('heroPageB');
         const dots = document.getElementById('heroSlideDots');
         const fallback = document.getElementById('heroImageFallback');
+        if (!heroImage || !heroImageNext || !pageA || !pageB || !dots || !fallback) return;
         const pages = [pageA, pageB];
         const images = [heroImage, heroImageNext];
         images.forEach((image, index) => image.addEventListener('error', () => pages[index].className = 'hero-page'));

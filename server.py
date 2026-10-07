@@ -35,7 +35,7 @@ SESSIONS: dict[str, float] = {}
 WRITE_LOCK = threading.Lock()
 KST = timezone(timedelta(hours=9))
 
-CATEGORY_NAMES = {"photobooth": "포토부스", "game": "게임 키오스크", "saju": "AI 사주"}
+CATEGORY_NAMES = {"photobooth": "포토부스", "game": "게임 키오스크", "saju": "AI 사주", "mosaic": "모자이크 월"}
 
 DEFAULT_CONTENT = {
     "site": {
@@ -47,6 +47,22 @@ DEFAULT_CONTENT = {
         "hero_slides": [
             {"id":"default-hero","image":"photobooth_white.jpg","created_at":""}
         ]
+    },
+    "service": {
+        "intro_image": "",
+        "signature_image": "",
+        "compact_image": ""
+    },
+    "photobooth_page": {
+        "screens": [],
+        "ai_content": {
+            "background": [],
+            "beauty": [],
+            "webtoon": [],
+            "meme": [],
+            "figure": []
+        },
+        "backwalls": []
     },
     "frames": {
         "basic": {"main_image":"", "gallery":[]},
@@ -91,7 +107,7 @@ def load_content() -> dict:
     content = read_json(CONTENT_FILE, {})
     if not isinstance(content, dict):
         content = {}
-    for section in ("site", "frames", "portfolio"):
+    for section in ("site", "service", "photobooth_page", "frames", "portfolio"):
         if section not in content:
             content[section] = json.loads(json.dumps(DEFAULT_CONTENT[section], ensure_ascii=False))
     if not isinstance(content.get("frames"), dict):
@@ -101,6 +117,26 @@ def load_content() -> dict:
         legacy_image = site.get("hero_image", "")
         site["hero_slides"] = [{"id":"legacy-hero","image":legacy_image,"created_at":""}] if legacy_image else []
     site["hero_slides"] = [item for item in site["hero_slides"] if isinstance(item, dict) and item.get("image")][:5]
+    service = content.setdefault("service", {})
+    if not isinstance(service, dict):
+        service = {}
+        content["service"] = service
+    for slot in ("intro_image", "signature_image", "compact_image"):
+        service.setdefault(slot, "")
+    photobooth_page = content.setdefault("photobooth_page", {})
+    if not isinstance(photobooth_page, dict):
+        photobooth_page = {}
+        content["photobooth_page"] = photobooth_page
+    for gallery_name in ("screens", "backwalls"):
+        if not isinstance(photobooth_page.get(gallery_name), list):
+            photobooth_page[gallery_name] = []
+    ai_content = photobooth_page.setdefault("ai_content", {})
+    if not isinstance(ai_content, dict):
+        ai_content = {}
+        photobooth_page["ai_content"] = ai_content
+    for category in ("background", "beauty", "webtoon", "meme", "figure"):
+        if not isinstance(ai_content.get(category), list):
+            ai_content[category] = []
     for frame_type in ("basic", "ai", "collage"):
         frame = content["frames"].setdefault(frame_type, {})
         frame.setdefault("main_image", "")
@@ -197,9 +233,10 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
         super().end_headers()
 
     def do_HEAD(self):
-        if urlparse(self.path).path in {"/portfolio", "/portfolio/"}:
+        if urlparse(self.path).path in {"/portfolio", "/portfolio/", "/photobooth", "/photobooth/"}:
             self.send_response(HTTPStatus.FOUND)
-            self.send_header("Location", "/portfolio.html")
+            target = "/photobooth.html" if "photobooth" in urlparse(self.path).path else "/portfolio.html"
+            self.send_header("Location", target)
             self.end_headers()
             return
         if self._protected_path():
@@ -208,15 +245,15 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         path = urlparse(self.path).path
-        if path in {"/portfolio", "/portfolio/"}:
+        if path in {"/portfolio", "/portfolio/", "/photobooth", "/photobooth/"}:
             self.send_response(HTTPStatus.FOUND)
-            self.send_header("Location", "/portfolio.html")
+            self.send_header("Location", "/photobooth.html" if "photobooth" in path else "/portfolio.html")
             self.end_headers()
             return
         if path == "/api/content":
             return self._json(HTTPStatus.OK, load_content())
         if path == "/api/version":
-            return self._json(HTTPStatus.OK, {"version": "13", "hero_slides": True, "page_turn": True, "fixed_photo_frame": True})
+            return self._json(HTTPStatus.OK, {"version": "22", "company_nav": True, "photobooth_nav": True, "photobooth_screens": True, "screen_centered": True, "screen_unlimited": True, "screen_lightbox": True, "ai_content": True, "ai_content_white": True, "ai_content_four_each": True, "content_order": "screen-ai-backwall-signature", "backwall_gallery": True, "backwall_unlimited": True, "successful_events": "10000+", "service_page": True, "service_photos_equal": True, "service_text_size": "15px", "archive_paper_sizes": "2x3/2x4", "service_admin_photos": True})
         if path == "/api/admin/status":
             return self._json(HTTPStatus.OK, {"configured": ADMIN_FILE.exists(), "authenticated": self._authenticated()})
         if path == "/api/admin/data":
@@ -236,6 +273,10 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
             if path.startswith("/api/admin/") and not self._require_auth(): return
             if path == "/api/admin/site": return self._save_site()
             if path == "/api/admin/hero-slide": return self._save_hero_slide()
+            if path == "/api/admin/service-photo": return self._save_service_photo()
+            if path == "/api/admin/photobooth-screen": return self._save_photobooth_screen()
+            if path == "/api/admin/ai-content": return self._save_ai_content()
+            if path == "/api/admin/backwall": return self._save_backwall()
             if path == "/api/admin/frame-main": return self._save_frame_main()
             if path == "/api/admin/frame-gallery": return self._save_frame_gallery()
             if path == "/api/admin/portfolio": return self._save_portfolio()
@@ -248,7 +289,7 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
 
     def do_DELETE(self):
         path = urlparse(self.path).path
-        if path not in {"/api/admin/portfolio", "/api/admin/frame-gallery", "/api/admin/hero-slide"}: return self._json(HTTPStatus.NOT_FOUND, {"message":"요청한 기능을 찾을 수 없습니다."})
+        if path not in {"/api/admin/portfolio", "/api/admin/frame-gallery", "/api/admin/hero-slide", "/api/admin/photobooth-screen", "/api/admin/ai-content", "/api/admin/backwall"}: return self._json(HTTPStatus.NOT_FOUND, {"message":"요청한 기능을 찾을 수 없습니다."})
         if not self._require_auth(): return
         query = parse_qs(urlparse(self.path).query)
         item_id = query.get("id", [""])[0]
@@ -264,13 +305,31 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
             item = next((entry for entry in gallery if entry.get("id") == item_id), None)
             if not item: return self._json(HTTPStatus.NOT_FOUND, {"message":"삭제할 사진을 찾을 수 없습니다."})
             content["frames"][frame_type]["gallery"] = [entry for entry in gallery if entry.get("id") != item_id]
-        else:
+        elif path == "/api/admin/hero-slide":
             slides = content["site"].get("hero_slides", [])
             item = next((entry for entry in slides if entry.get("id") == item_id), None)
             if not item: return self._json(HTTPStatus.NOT_FOUND, {"message":"삭제할 슬라이드 사진을 찾을 수 없습니다."})
             remaining = [entry for entry in slides if entry.get("id") != item_id]
             content["site"]["hero_slides"] = remaining
             content["site"]["hero_image"] = remaining[0].get("image", "") if remaining else ""
+        elif path == "/api/admin/photobooth-screen":
+            gallery = content["photobooth_page"]["screens"]
+            item = next((entry for entry in gallery if entry.get("id") == item_id), None)
+            if not item: return self._json(HTTPStatus.NOT_FOUND, {"message":"삭제할 화면 사진을 찾을 수 없습니다."})
+            content["photobooth_page"]["screens"] = [entry for entry in gallery if entry.get("id") != item_id]
+        elif path == "/api/admin/backwall":
+            gallery = content["photobooth_page"]["backwalls"]
+            item = next((entry for entry in gallery if entry.get("id") == item_id), None)
+            if not item: return self._json(HTTPStatus.NOT_FOUND, {"message":"삭제할 백월 사진을 찾을 수 없습니다."})
+            content["photobooth_page"]["backwalls"] = [entry for entry in gallery if entry.get("id") != item_id]
+        else:
+            category = query.get("category", [""])[0]
+            if category not in {"background", "beauty", "webtoon", "meme", "figure"}:
+                return self._json(HTTPStatus.BAD_REQUEST, {"message":"AI 콘텐츠 종류를 확인해 주세요."})
+            gallery = content["photobooth_page"]["ai_content"][category]
+            item = next((entry for entry in gallery if entry.get("id") == item_id), None)
+            if not item: return self._json(HTTPStatus.NOT_FOUND, {"message":"삭제할 AI 콘텐츠 사진을 찾을 수 없습니다."})
+            content["photobooth_page"]["ai_content"][category] = [entry for entry in gallery if entry.get("id") != item_id]
         write_json(CONTENT_FILE, content)
         delete_uploaded_image(item.get("image", ""))
         self._json(HTTPStatus.OK, self._all_data())
@@ -342,7 +401,7 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
 
     def _all_data(self) -> dict:
         content = load_content()
-        return {"site": content.get("site", {}), "frames": content.get("frames", {}), "portfolio": content.get("portfolio", []), "inquiries": read_json(INQUIRY_FILE, [])}
+        return {"site": content.get("site", {}), "service": content.get("service", {}), "photobooth_page": content.get("photobooth_page", {}), "frames": content.get("frames", {}), "portfolio": content.get("portfolio", []), "inquiries": read_json(INQUIRY_FILE, [])}
 
     def _setup_admin(self):
         if ADMIN_FILE.exists(): return self._json(HTTPStatus.CONFLICT, {"message":"이미 관리자 비밀번호가 설정되어 있습니다."})
@@ -391,6 +450,54 @@ class ThePicksHandler(SimpleHTTPRequestHandler):
             raise ValueError("등록할 슬라이드 사진을 선택해 주세요.")
         slides.append({"id":uuid.uuid4().hex,"image":new_image,"created_at":now_text()})
         content["site"]["hero_image"] = slides[0]["image"]
+        write_json(CONTENT_FILE, content)
+        self._json(HTTPStatus.OK, self._all_data())
+
+    def _save_service_photo(self):
+        fields, files = self._read_multipart()
+        slot = clean_text(fields.get("slot"), 30, True)
+        if slot not in {"intro_image", "signature_image", "compact_image"}:
+            raise ValueError("서비스 사진 위치를 확인해 주세요.")
+        new_image = save_image(files.get("image"))
+        if not new_image:
+            raise ValueError("등록할 서비스 소개 사진을 선택해 주세요.")
+        content = load_content()
+        service = content.setdefault("service", {})
+        old_image = service.get(slot, "")
+        service[slot] = new_image
+        write_json(CONTENT_FILE, content)
+        delete_uploaded_image(old_image)
+        self._json(HTTPStatus.OK, self._all_data())
+
+    def _gallery_image(self, gallery: list, files: dict, maximum: int | None = None) -> None:
+        if maximum is not None and len(gallery) >= maximum:
+            raise ValueError(f"사진은 최대 {maximum}장까지 등록할 수 있습니다.")
+        new_image = save_image(files.get("image"))
+        if not new_image:
+            raise ValueError("등록할 사진을 선택해 주세요.")
+        gallery.append({"id": uuid.uuid4().hex, "image": new_image, "created_at": now_text()})
+
+    def _save_photobooth_screen(self):
+        _fields, files = self._read_multipart()
+        content = load_content()
+        self._gallery_image(content["photobooth_page"]["screens"], files)
+        write_json(CONTENT_FILE, content)
+        self._json(HTTPStatus.OK, self._all_data())
+
+    def _save_ai_content(self):
+        fields, files = self._read_multipart()
+        category = clean_text(fields.get("category"), 20, True)
+        if category not in {"background", "beauty", "webtoon", "meme", "figure"}:
+            raise ValueError("AI 콘텐츠 종류를 확인해 주세요.")
+        content = load_content()
+        self._gallery_image(content["photobooth_page"]["ai_content"][category], files, 4)
+        write_json(CONTENT_FILE, content)
+        self._json(HTTPStatus.OK, self._all_data())
+
+    def _save_backwall(self):
+        _fields, files = self._read_multipart()
+        content = load_content()
+        self._gallery_image(content["photobooth_page"]["backwalls"], files)
         write_json(CONTENT_FILE, content)
         self._json(HTTPStatus.OK, self._all_data())
 

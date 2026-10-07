@@ -5,24 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE PICKS | 프리미엄 렌탈 솔루션</title>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="style.css?v=28">
 </head>
 <body>
+    <svg class="mw-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/></symbol>
+        <symbol id="i-touch" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.8-2.4L4.2 15.4a1.5 1.5 0 0 1 2.3-1.9L9 16"/></symbol>
+        <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="m21 16-5-5-9 9"/></symbol>
+        <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><rect x="9.5" y="16" width="5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></symbol>
+        <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><rect x="3" y="8" width="18" height="9" rx="2"/><rect x="7" y="14" width="10" height="7" rx="1"/><path d="M17.5 11.5h.01"/></symbol>
+        <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2A5 5 0 0 1 21.5 19"/></symbol>
+        <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8S10.5 3 8 3.5 7 8 12 8zm0 0s1.5-5 4-4.5S17 8 12 8z"/></symbol>
+        <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.8"/><circle cx="6" cy="12" r="2.8"/><circle cx="18" cy="19" r="2.8"/><path d="m8.5 10.6 7-4.2M8.5 13.4l7 4.2"/></symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M12 17V8M16 17v-7M20 17V5"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/></symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+        <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/></symbol>
+        <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7L20 8.5"/><path d="M20 3.5v5h-5"/></symbol>
+        <symbol id="i-brush" viewBox="0 0 24 24"><path d="M14.5 4.5 19.5 9.5 11 18l-5-5z"/><path d="M6 13c-2 0-3 1.5-3 3.5S2 20 2 20s3.5.5 5.5-.5S9.5 17 9 16"/><path d="m17 2 5 5"/></symbol>
+        <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.2 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.8-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="15" cy="7.5" r="1.2"/></symbol>
+        <symbol id="i-font" viewBox="0 0 24 24"><path d="M4 20 10.5 4h3L20 20M7 14h10"/></symbol>
+        <symbol id="i-tools" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8-3-3 8-8M3 21l6-6"/><path d="M9.3 6.3a4 4 0 0 1-5 5"/><path d="m3 3 6 6"/></symbol>
+        <symbol id="i-map" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+        <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01"/></symbol>
+        <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18.5h4"/></symbol>
+    </svg>
     <!-- Navbar (White Theme + Dropdown) -->
     <nav>
         <a href="index.html#top" class="logo"><span class="logo-red">T</span>HE <span class="logo-red">P</span>ICKS</a>
         <div class="nav-links">
+            <a href="index.html#photobooth">회사 소개</a>
             <div class="dropdown">
-                <a href="index.html#photobooth">포토부스 소개</a>
+                <a href="photobooth.html?v=22" class="dropdown-toggle" aria-haspopup="true">포토부스<span class="nav-caret" aria-hidden="true"></span></a>
                 <div class="dropdown-content">
+                    <a href="photobooth.html?v=22">포토부스 소개</a>
                     <a href="frame_basic.html">베이직 프레임</a>
                     <a href="frame_ai.html">AI 디자인 프레임</a>
                     <a href="frame_collage.html">콜라주 프레임</a>
                 </div>
             </div>
             <a href="index.html#game">게임 키오스크</a>
-            <a href="index.html#ai">AI 사주</a>
-            <a href="/portfolio.html?v=13" id="mainPortfolioLink">포트폴리오</a>
+            <a href="saju.html?v=23">AI 사주</a>
+            <a href="mosaic.html?v=23">모자이크 월</a>
+            <a href="/portfolio.html" id="mainPortfolioLink">포트폴리오</a>
             <a href="#quote-form" class="quote-btn open-quote-form">상담 문의하기</a>
         </div>
     </nav>
@@ -35,7 +61,7 @@
             <p id="heroDescription">다년간의 이벤트 기획·진행 노하우와 축적된 운영 경험으로<br>특별한 순간을 더욱 특별하게 만들어 드립니다.</p>
             <div class="hero-btns">
                 <a href="#quote-form" class="btn-primary open-quote-form">상담 문의하기 →</a>
-                <a href="#photobooth" class="btn-secondary">서비스 소개 →</a>
+                <a href="photobooth.html?v=22" class="btn-secondary">서비스 소개 →</a>
             </div>
         </div>
         <div class="hero-img">
@@ -128,7 +154,7 @@
             <p>소프트웨어 개발 운영</p>
         </div>
         <div class="stat-item">
-            <h3>1,000+</h3>
+            <h3>10,000+</h3>
             <p>성공적인 진행 행사</p>
         </div>
         <div class="stat-item">
@@ -309,6 +335,7 @@
                     </ul>
                 </div>
             </div>
+            <div class="sj-more-btn"><a href="saju.html?v=23" class="btn-secondary">AI 사주 자세히 보기 →</a></div>
         </div>
     </section>
 
@@ -339,6 +366,75 @@
                 <div class="port-item">
                     <div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_4.jpg" alt="" onerror="this.style.display='none'"></div>
                     <div class="port-text"><h4>브랜드 팝업</h4><p>팝업 스토어</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- MOSAIC WALL SECTION (White) -->
+    <section id="mosaic" class="section">
+        <div class="section-inner">
+            <span class="hero-label" style="text-align:center; color:var(--accent);">Pop-up Mosaic Photo Wall</span>
+            <h2 class="section-title" style="text-align:center;">모자이크 월 프로세스</h2>
+            <p class="section-subtitle" style="text-align:center;">고객 사진 한 장 한 장이 모여 브랜드의 대형 백월이 완성됩니다</p>
+
+            <div class="mw-intro">
+                <div class="mw-intro-img">
+                    <img src="images/mosaic/wall.jpg" alt="모자이크 포토월 완성 예시" loading="lazy">
+                    <span class="mw-intro-badge"><b>377</b>장의 사진이 모여<br>하나의 그림으로</span>
+                </div>
+                <ul class="mw-intro-points">
+                    <li><span class="mw-ico"><svg><use href="#i-qr"/></svg></span><div><h4>QR 한 번으로 참여</h4><p>앱 설치 없이 휴대폰으로 사진을 올립니다</p></div></li>
+                    <li><span class="mw-ico"><svg><use href="#i-print"/></svg></span><div><h4>현장에서 바로 2장 출력</h4><p>고객 기념 사진 1장 + 벽에 붙일 사진 1장</p></div></li>
+                    <li><span class="mw-ico"><svg><use href="#i-grid"/></svg></span><div><h4>벽에 붙이면 그림이 완성</h4><p>사진마다 원화 조각이 겹쳐 있어 모이면 브랜드 이미지가 드러납니다</p></div></li>
+                </ul>
+            </div>
+
+            <ol class="mw-steps">
+                <li><span class="mw-step-ico gold"><svg><use href="#i-qr"/></svg></span><span class="mw-step-tag">휴대폰</span><h4>QR 촬영 후<br>사진 선택</h4></li>
+                <li><span class="mw-step-ico gold"><svg><use href="#i-phone"/></svg></span><span class="mw-step-tag">휴대폰</span><h4>뒷자리 4자리<br>입력 · 저장</h4></li>
+                <li><span class="mw-step-ico"><svg><use href="#i-touch"/></svg></span><span class="mw-step-tag">키오스크</span><h4>뒷자리로<br>내 사진 찾기</h4></li>
+                <li><span class="mw-step-ico"><svg><use href="#i-image"/></svg></span><span class="mw-step-tag">키오스크</span><h4>템플릿 고르고<br>얼굴 위치 맞춤</h4></li>
+                <li><span class="mw-step-ico"><svg><use href="#i-grid"/></svg></span><span class="mw-step-tag">키오스크</span><h4>벽에 붙일<br>자리 선택</h4></li>
+                <li><span class="mw-step-ico dark"><svg><use href="#i-print"/></svg></span><span class="mw-step-tag">DNP 프린터</span><h4>2장 출력 후<br>벽에 부착</h4></li>
+            </ol>
+
+            <div class="mw-note">
+                <strong>대기 줄 없이 진행돼요.</strong> 업로드는 각자 휴대폰에서 동시에 하고, 키오스크는 출력만 맡습니다. 1인 키오스크 이용 시간은 약 1분입니다.
+            </div>
+
+            <div class="mw-center-btn"><a href="mosaic.html" class="btn-secondary">모자이크 월 자세히 보기 →</a></div>
+        </div>
+    </section>
+
+
+    <!-- PORTFOLIO (모자이크 월 현장 스케치) -->
+    <section class="section bg-gray portfolio-section" data-portfolio-category="mosaic">
+        <div class="section-inner">
+            <div class="portfolio-header">
+                <div>
+                    <span class="hero-label" style="color:var(--accent); margin-bottom:5px;">PORTFOLIO</span>
+                    <h2 class="section-title" style="margin-bottom:0;">모자이크 월 현장 스케치</h2>
+                </div>
+                <a href="portfolio.html?category=mosaic" class="btn-more">더보기 →</a>
+            </div>
+            <div class="portfolio-4grid">
+                <div class="port-item">
+                    <div class="port-img"><span class="img-placeholder">이미지 업로드</span></div>
+                    <div class="port-text"><h4>브랜드 팝업</h4><p>모자이크 포토월</p></div>
+                </div>
+                <div class="port-item">
+                    <div class="port-img"><span class="img-placeholder">이미지 업로드</span></div>
+                    <div class="port-text"><h4>기업 행사</h4><p>참여형 브랜드 백월</p></div>
+                </div>
+                <div class="port-item">
+                    <div class="port-img"><span class="img-placeholder">이미지 업로드</span></div>
+                    <div class="port-text"><h4>지역 축제</h4><p>방문객 참여 포토월</p></div>
+                </div>
+                <div class="port-item">
+                    <div class="port-img"><span class="img-placeholder">이미지 업로드</span></div>
+                    <div class="port-text"><h4>박람회</h4><p>완성형 모자이크 아트</p></div>
                 </div>
             </div>
         </div>
@@ -411,7 +507,7 @@
                     <label>행사 종류 <strong>*</strong>
                         <select name="event_type" required>
                             <option value="">선택해 주세요</option>
-                            <option>포토부스</option><option>게임 키오스크</option><option>AI 사주</option><option>기업·브랜드 행사</option><option>기타</option>
+                            <option>포토부스</option><option>게임 키오스크</option><option>AI 사주</option><option>모자이크 포토월</option><option>기업·브랜드 행사</option><option>기타</option>
                         </select>
                     </label>
                     <label>행사 예정일<input type="date" name="event_date"></label>
@@ -427,7 +523,8 @@
         </div>
     </div>
 
-    <script src="app.js?v=13" defer></script>
+    <script src="app.js?v=23" defer></script>
 
+    <script src="nav.js?v=25" defer></script>
 </body>
 </html>

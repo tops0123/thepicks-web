@@ -1,0 +1,61 @@
+[THE PICKS 시놀로지 DS423+ 설치방법]
+
+중요
+- 현재 광고 중인 www.thepicks.co.kr의 DNS는 최종 확인 전까지 변경하지 마세요.
+- 먼저 NAS 내부 주소와 임시 주소에서 새 홈페이지를 확인합니다.
+- data와 uploads 폴더를 삭제하면 관리자 설정, 문의 내역, 업로드 사진이 삭제됩니다.
+
+1. 홈페이지 파일 올리기
+① DSM에서 File Station을 엽니다.
+② docker 공유 폴더 안에 thepicks 폴더를 만듭니다.
+   예: /volume1/docker/thepicks
+③ 이 ZIP의 파일을 모두 thepicks 폴더에 올립니다.
+
+2. Container Manager에서 실행하기
+① Container Manager → 프로젝트 → 생성을 누릅니다.
+② 프로젝트 이름: thepicks-homepage
+③ 경로: 위에서 만든 /volume1/docker/thepicks 폴더 선택
+④ 소스: 기존 docker-compose.yml 사용
+⑤ 다음 → 빌드 및 시작을 진행합니다.
+⑥ 컨테이너 상태가 '실행 중' 또는 '정상'인지 확인합니다.
+
+3. NAS 내부에서 먼저 확인하기
+- 홈페이지: http://NAS내부IP:8088/
+- 관리자: http://NAS내부IP:8088/admin.html
+- 관리자 화면에서 처음 한 번 사용할 비밀번호를 설정합니다.
+- 사진 등록·수정·삭제와 견적 문의 접수를 시험합니다.
+
+4. 기존 주소를 건드리지 않고 외부 시험하기
+① 가비아 DNS 관리툴에서 new.thepicks.co.kr용 A 레코드만 추가합니다.
+   호스트: new
+   값: 사무실 인터넷 공인 IP
+② 공유기에서 외부 80, 443 포트를 NAS 내부 IP의 80, 443으로 전달합니다.
+③ DSM → 제어판 → 로그인 포털 → 고급 → 역방향 프록시 → 생성을 누릅니다.
+   소스 프로토콜: HTTPS
+   소스 호스트 이름: new.thepicks.co.kr
+   소스 포트: 443
+   대상 프로토콜: HTTP
+   대상 호스트 이름: 127.0.0.1
+   대상 포트: 8088
+④ DSM → 제어판 → 보안 → 인증서 → 추가에서 Let's Encrypt 인증서를 발급합니다.
+   도메인: new.thepicks.co.kr
+⑤ https://new.thepicks.co.kr 로 접속하여 외부 테스트합니다.
+
+5. 최종 완료 후 www.thepicks.co.kr 전환하기
+① 새 홈페이지, 관리자, 모바일, 문의 접수를 모두 확인합니다.
+② DSM 역방향 프록시에 www.thepicks.co.kr 항목을 추가합니다.
+   대상은 동일하게 127.0.0.1:8088입니다.
+③ 가비아 DNS에서 www 레코드를 NAS가 연결된 공인 IP로 변경합니다.
+④ www.thepicks.co.kr용 Let's Encrypt 인증서를 발급하고 해당 역방향 프록시에 지정합니다.
+⑤ https://www.thepicks.co.kr 접속을 확인한 후 기존 호스팅을 종료합니다.
+
+6. 자료 보관 및 백업
+- data 폴더: 관리자 비밀번호, 홈페이지 글, 견적 문의 내역
+- uploads 폴더: 관리자에서 등록한 사진
+- Hyper Backup으로 위 두 폴더를 정기 백업하는 것을 권장합니다.
+
+[문제가 생겼을 때]
+- 홈페이지가 안 열림: Container Manager에서 thepicks-homepage가 실행 중인지 확인
+- 사진 저장 실패: File Station에서 data와 uploads 폴더의 쓰기 권한 확인
+- 외부 접속 실패: 공유기 포트 전달, 공인 IP, 가비아 A 레코드 확인
+- 인증서 발급 실패: 도메인이 NAS 공인 IP를 가리키는지, 외부 80 포트가 열려 있는지 확인

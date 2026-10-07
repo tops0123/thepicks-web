@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE PICKS | 프리미엄 렌탈 솔루션</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <link rel="stylesheet" href="style.css?v=29">
+</head>
+<body class="hm-page hm-b">
+    <svg class="mw-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/></symbol>
+        <symbol id="i-touch" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.8-2.4L4.2 15.4a1.5 1.5 0 0 1 2.3-1.9L9 16"/></symbol>
+        <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="m21 16-5-5-9 9"/></symbol>
+        <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><rect x="9.5" y="16" width="5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></symbol>
+        <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><rect x="3" y="8" width="18" height="9" rx="2"/><rect x="7" y="14" width="10" height="7" rx="1"/><path d="M17.5 11.5h.01"/></symbol>
+        <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2A5 5 0 0 1 21.5 19"/></symbol>
+        <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8S10.5 3 8 3.5 7 8 12 8zm0 0s1.5-5 4-4.5S17 8 12 8z"/></symbol>
+        <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.8"/><circle cx="6" cy="12" r="2.8"/><circle cx="18" cy="19" r="2.8"/><path d="m8.5 10.6 7-4.2M8.5 13.4l7 4.2"/></symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M12 17V8M16 17v-7M20 17V5"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/></symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+        <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/></symbol>
+        <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7L20 8.5"/><path d="M20 3.5v5h-5"/></symbol>
+        <symbol id="i-brush" viewBox="0 0 24 24"><path d="M14.5 4.5 19.5 9.5 11 18l-5-5z"/><path d="M6 13c-2 0-3 1.5-3 3.5S2 20 2 20s3.5.5 5.5-.5S9.5 17 9 16"/><path d="m17 2 5 5"/></symbol>
+        <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.2 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.8-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="15" cy="7.5" r="1.2"/></symbol>
+        <symbol id="i-font" viewBox="0 0 24 24"><path d="M4 20 10.5 4h3L20 20M7 14h10"/></symbol>
+        <symbol id="i-tools" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8-3-3 8-8M3 21l6-6"/><path d="M9.3 6.3a4 4 0 0 1-5 5"/><path d="m3 3 6 6"/></symbol>
+        <symbol id="i-map" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+        <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01"/></symbol>
+        <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18.5h4"/></symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></symbol>
+        <symbol id="i-yinyang" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a4.5 4.5 0 0 1 0 9 4.5 4.5 0 0 0 0 9"/><circle cx="12" cy="7.5" r="1"/><circle cx="12" cy="16.5" r="1"/></symbol>
+        <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6 10h.01M9.5 10h.01M13 10h.01M16.5 10h.01M6 13.5h.01M18 13.5h.01M8.5 14h7"/></symbol>
+        <symbol id="i-wand" viewBox="0 0 24 24"><path d="m4 20 11-11M13 7l4 4"/><path d="M18 2v3M16.5 3.5h3M20.5 8v2M19.5 9h2M8 3v2M7 4h2"/></symbol>
+        <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2"/><rect x="8" y="5.5" width="8" height="4" rx="1"/><path d="M8.5 13h.01M12 13h.01M15.5 13h.01M8.5 17h.01M12 17h.01M15.5 17h.01"/></symbol>
+        <symbol id="i-userclock" viewBox="0 0 24 24"><circle cx="9" cy="7.5" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 9.5-5.8"/><circle cx="17.5" cy="17" r="4"/><path d="M17.5 15v2l1.3 1"/></symbol>
+        <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.6 6.1 6.6.5-5 4.3 1.6 6.4L12 16.4l-5.8 3.4 1.6-6.4-5-4.3 6.6-.5z"/></symbol>
+        <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 7h3l2-3h6l2 3h3a1.5 1.5 0 0 1 1.5 1.5v10A1.5 1.5 0 0 1 20 20H4a1.5 1.5 0 0 1-1.5-1.5v-10A1.5 1.5 0 0 1 4 7z"/><circle cx="12" cy="13" r="3.8"/></symbol>
+        <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+        <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+        <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5a4.5 4.5 0 0 1-.6-9 6 6 0 0 1 11.5 1.5 3.8 3.8 0 0 1-.4 7.5z"/></symbol>
+        <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 2.5v5M15 2.5v5M6.5 7.5h11v4a5.5 5.5 0 0 1-11 0zM12 17v4.5"/></symbol>
+        <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.2" r=".9"/></symbol>
+        <symbol id="i-ruler" viewBox="0 0 24 24"><rect x="2.5" y="8" width="19" height="8" rx="1.5"/><path d="M6.5 8v3M10 8v4M13.5 8v3M17 8v4"/></symbol>
+        <symbol id="i-face" viewBox="0 0 24 24"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><circle cx="12" cy="10.5" r="2.6"/><path d="M7.8 17a4.6 4.6 0 0 1 8.4 0"/></symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+        <symbol id="i-update" viewBox="0 0 24 24"><path d="M12 3v11M7.5 9.5 12 14l4.5-4.5"/><path d="M4 16v3.5h16V16"/></symbol>
+        <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></symbol>
+        <symbol id="i-game" viewBox="0 0 24 24"><path d="M7 7.5h10a4.5 4.5 0 0 1 4.4 5.4l-.8 4a2.6 2.6 0 0 1-4.5 1.2L14 16h-4l-2.1 2.1a2.6 2.6 0 0 1-4.5-1.2l-.8-4A4.5 4.5 0 0 1 7 7.5z"/><path d="M8 10.5v3M6.5 12h3M15.5 11h.01M17.5 13h.01"/></symbol>
+        <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+        <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 4.5 13.5H11l-1 8 8.5-11H12z"/></symbol>
+        <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 2.5h12v19l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5-2 1.5z"/><path d="M9 7.5h6M9 11h6M9 14.5h4"/></symbol>
+    </svg>
+    <!-- Navbar (White Theme + Dropdown) -->
+    <nav>
+        <a href="index.html#top" class="logo"><span class="logo-red">T</span>HE <span class="logo-red">P</span>ICKS</a>
+        <div class="nav-links">
+            <a href="index.html#photobooth">회사 소개</a>
+            <div class="dropdown">
+                <a href="photobooth.html?v=22" class="dropdown-toggle" aria-haspopup="true">포토부스<span class="nav-caret" aria-hidden="true"></span></a>
+                <div class="dropdown-content">
+                    <a href="photobooth.html?v=22">포토부스 소개</a>
+                    <a href="frame_basic.html">베이직 프레임</a>
+                    <a href="frame_ai.html">AI 디자인 프레임</a>
+                    <a href="frame_collage.html">콜라주 프레임</a>
+                </div>
+            </div>
+            <a href="index.html#game">게임 키오스크</a>
+            <a href="saju.html?v=23">AI 사주</a>
+            <a href="mosaic.html?v=23">모자이크 월</a>
+            <a href="/portfolio.html" id="mainPortfolioLink">포트폴리오</a>
+            <a href="#quote-form" class="quote-btn open-quote-form">상담 문의하기</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="top" class="hero hm-hero">
+        <div class="hero-text">
+            <span class="hero-label" id="heroEyebrow">PREMIUM KIOSK RENTAL</span>
+            <h1><span id="heroTitle">프리미엄</span><br><span class="text-red" id="heroAccent">포토부스 대여</span></h1>
+            <p id="heroDescription">다년간의 이벤트 기획·진행 노하우와 축적된 운영 경험으로<br>특별한 순간을 더욱 특별하게 만들어 드립니다.</p>
+            <div class="hero-btns">
+                <a href="#quote-form" class="btn-primary open-quote-form">상담 문의하기 →</a>
+                <a href="#services" class="mw-btn-ghost">서비스 한눈에 보기</a>
+            </div>
+            <dl class="hm-hero-stats">
+                <div><dt>20년+</dt><dd>이벤트 기획·운영</dd></div>
+                <div><dt>10,000+</dt><dd>성공적인 진행 행사</dd></div>
+                <div><dt>99%</dt><dd>고객 만족도</dd></div>
+            </dl>
+        </div>
+        <div class="hero-img">
+            <div class="hero-media-frame">
+                <div id="heroPageA" class="hero-page is-active"><img id="heroImage" src="photobooth_white.jpg" alt="더픽스 포토부스"></div>
+                <div id="heroPageB" class="hero-page"><img id="heroImageNext" alt="" aria-hidden="true"></div>
+                <div id="heroSlideDots" class="hero-slide-dots" aria-label="메인 사진 선택"></div>
+                <div id="heroImageFallback" class="hero-image-fallback">대표 이미지<br>관리자에서 업로드</div>
+            </div>
+            <span class="hm-hero-badge"><b>THE PICKS</b>EVENT KIOSK SOLUTION</span>
+        </div>
+    </header>
+
+    <!-- SERVICES -->
+    <section id="services" class="section hm-services">
+        <div class="hm-head">
+            <span class="hero-label" style="color:var(--accent);">OUR SERVICES</span>
+            <h2 class="section-title">행사를 채우는 <span class="text-red">4가지 솔루션</span></h2>
+            <p class="section-subtitle">찍고, 즐기고, 남기는 모든 순간을 더픽스 한 곳에서</p>
+        </div>
+        <div class="hm-svc-cards">
+            <a href="photobooth.html?v=22" class="hm-svc-card">
+                <div class="hm-svc-img"><img src="images/photobooth/print_wedding.jpg" alt="포토부스 AI 인화 샘플" loading="lazy"></div>
+                <div class="hm-svc-body"><span>01 · PHOTO BOOTH</span><h3>포토부스</h3><p>DSLR 고화질 촬영과 AI 변신, 즉석 인화·QR까지</p><b>자세히 보기 →</b></div>
+            </a>
+            <a href="saju.html?v=23" class="hm-svc-card">
+                <div class="hm-svc-img"><img src="images/saju/poster.jpg" alt="AI 사주 키오스크 화면" loading="lazy"></div>
+                <div class="hm-svc-body"><span>02 · AI FORTUNE</span><h3>AI 사주</h3><p>이름과 생년월일로 보는 사주·오늘의 운세</p><b>자세히 보기 →</b></div>
+            </a>
+            <a href="mosaic.html?v=23" class="hm-svc-card">
+                <div class="hm-svc-img"><img src="images/mosaic/wall.jpg" alt="모자이크 포토월 예시" loading="lazy"></div>
+                <div class="hm-svc-body"><span>03 · MOSAIC WALL</span><h3>모자이크 월</h3><p>고객 사진이 모여 완성되는 대형 브랜드 백월</p><b>자세히 보기 →</b></div>
+            </a>
+            <a href="#game" class="hm-svc-card">
+                <div class="hm-svc-img hm-svc-game"><svg><use href="#i-game"/></svg><em>GAME KIOSK</em></div>
+                <div class="hm-svc-body"><span>04 · GAME KIOSK</span><h3>게임 키오스크</h3><p>초대형 터치 스크린과 경품 영수증 출력</p><b>자세히 보기 →</b></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- WHY THE PICKS (회사 소개) -->
+    <section id="photobooth" class="section bg-gray hm-why-wrap">
+        <div class="section-inner">
+            <div class="hm-head">
+                <span class="hero-label" style="color:var(--accent);">WHY THE PICKS</span>
+                <h2 class="section-title">왜 <span class="text-red">더픽스</span>인가?</h2>
+                <p class="section-subtitle">기획부터 개발, 현장 운영까지 직접 하는 행사 키오스크 전문 팀</p>
+            </div>
+            <div class="hm-why">
+                <article><span class="mw-ico"><svg><use href="#i-flag"/></svg></span><em>01</em><h3>20년 이벤트 기획·운영 노하우</h3><p>기업 행사, 지역 축제, 학교 행사, 팝업스토어까지 현장을 아는 기획으로 행사 목적에 맞는 구성을 제안합니다.</p></article>
+                <article><span class="mw-ico"><svg><use href="#i-code"/></svg></span><em>02</em><h3>직접 개발한 소프트웨어</h3><p>포토부스·AI 사주·모자이크 월 프로그램을 자체 개발·운영해 행사에 맞춘 기능과 빠른 대응이 가능합니다.</p></article>
+                <article><span class="mw-ico"><svg><use href="#i-palette"/></svg></span><em>03</em><h3>브랜드 맞춤 커스텀</h3><p>기기 외관 랩핑부터 화면 UI, 인화 프레임까지 브랜드 아이덴티티를 그대로 녹여냅니다.</p></article>
+                <article><span class="mw-ico"><svg><use href="#i-camera"/></svg></span><em>04</em><h3>스튜디오급 고화질</h3><p>고해상도 DSLR 카메라와 고광량 뷰티 라이팅으로 스튜디오급 결과물을 제공합니다.</p></article>
+                <article><span class="mw-ico"><svg><use href="#i-bolt"/></svg></span><em>05</em><h3>멈춤 없는 안정적인 시스템</h3><p>대규모 페스티벌 환경에 최적화된 다중 네트워크(Multi-PC)로 많은 인파에도 안정적으로 운영합니다.</p></article>
+                <article><span class="mw-ico"><svg><use href="#i-users"/></svg></span><em>06</em><h3>원스톱 현장 운영</h3><p>상담과 디자인, 설치·테스트, 현장 운영, 철수와 데이터 전달까지 한 팀이 책임집니다.</p></article>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="red-banner hm-stats">
+        <div class="stat-item"><h3>20년+</h3><p>이벤트 기획·운영 경력</p></div>
+        <div class="stat-item"><h3>7년+</h3><p>소프트웨어 개발 운영</p></div>
+        <div class="stat-item"><h3>10,000+</h3><p>성공적인 진행 행사</p></div>
+        <div class="stat-item"><h3>99%</h3><p>고객 만족도</p></div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section hm-process">
+        <div class="hm-head hm-head-center">
+            <span class="hero-label" style="color:var(--accent);">PROCESS</span>
+            <h2 class="section-title">상담부터 데이터 전달까지, <span class="text-red">한 번에</span></h2>
+            <p class="section-subtitle">어떤 서비스를 선택해도 같은 흐름으로 진행됩니다</p>
+        </div>
+        <ol class="mw-steps hm-steps">
+            <li><span class="mw-step-ico gold"><svg><use href="#i-chat"/></svg></span><span class="mw-step-tag">STEP 01</span><h4>상담</h4><p>행사 일정·규모·장소와<br>원하는 콘텐츠 확인</p></li>
+            <li><span class="mw-step-ico gold"><svg><use href="#i-palette"/></svg></span><span class="mw-step-tag">STEP 02</span><h4>기획 · 디자인</h4><p>화면·인화 프레임·백월을<br>브랜드에 맞춰 제작</p></li>
+            <li><span class="mw-step-ico"><svg><use href="#i-tools"/></svg></span><span class="mw-step-tag">STEP 03</span><h4>설치 · 테스트</h4><p>현장 조명·거리 맞춤과<br>출력·QR 점검</p></li>
+            <li><span class="mw-step-ico"><svg><use href="#i-users"/></svg></span><span class="mw-step-tag">STEP 04</span><h4>현장 운영</h4><p>운영 스태프 상주,<br>안내와 출력 관리</p></li>
+            <li><span class="mw-step-ico dark"><svg><use href="#i-save"/></svg></span><span class="mw-step-tag">STEP 05</span><h4>철수 · 데이터 전달</h4><p>장비 철수 후 사진·결과<br>데이터 정리 전달</p></li>
+        </ol>
+    </section>
+
+    <!-- FRAMES -->
+    <section id="frames" class="section bg-gray hm-frames">
+        <div class="section-inner">
+            <div class="hm-head hm-head-center">
+                <span class="hero-label" style="color:var(--accent);">PRINT FRAME</span>
+                <h2 class="section-title">맞춤형 인화 프레임</h2>
+                <p class="section-subtitle">클릭하여 각 프레임 모드의 상세 디자인을 확인해 보세요.</p>
+            </div>
+            <div class="frame-grid">
+                <a href="frame_basic.html" class="frame-link" data-frame-card="basic">
+                    <div class="frame-info">
+                        <div class="frame-mockup basic"><div class="photo-area"></div><div class="photo-area"></div><div class="photo-area"></div><div class="photo-area"></div><div class="logo-area">THE PICKS</div></div>
+                        <h3>베이직 프레임</h3>
+                        <p>깔끔한 프레임과 배경으로<br>우리의 가장 빛나는 순간을 기록합니다.</p>
+                    </div>
+                </a>
+                <a href="frame_ai.html" class="frame-link" data-frame-card="ai">
+                    <div class="frame-info">
+                        <div class="frame-mockup design"><div class="photo-area"></div><div class="photo-area"></div><div class="photo-area"></div><div class="logo-area">BRAND PARTY</div></div>
+                        <h3>AI 디자인 프레임</h3>
+                        <p>최신 AI 기능을 적용하여 내 맘대로<br>AR 배경과 이모티콘을 조합해 보세요.</p>
+                    </div>
+                </a>
+                <a href="frame_collage.html" class="frame-link" data-frame-card="collage">
+                    <div class="frame-info">
+                        <div class="frame-mockup collage"><div class="photo-area main-cut"></div><div class="photo-area sub-cut1"></div><div class="photo-area sub-cut2"></div></div>
+                        <h3>콜라주 프레임</h3>
+                        <p>혼자서도 힙하게, 여럿이서도 유쾌하게!<br>DIY 스티커로 사진을 감각적으로 꾸며보세요.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 포토부스 -->
+    <section id="portfolio" class="section  portfolio-section hm-svc" data-portfolio-category="photobooth">
+        <div class="section-inner">
+            <div class="hm-svc-top">
+                <div class="hm-svc-intro">
+                    <span class="hm-svc-no">01</span>
+                    <span class="hero-label" style="color:var(--accent);">PHOTO BOOTH</span>
+                    <h2 class="section-title">찍는 순간, <span class="text-red">작품이 되는 포토부스</span></h2>
+                    <p>캐논 DSLR 촬영에 AI 화보·캐릭터 변신을 더하고, 즉석 인화와 QR 다운로드까지 한 대로 완성합니다.</p>
+                    <a href="photobooth.html?v=22" class="btn-secondary">포토부스 자세히 보기 →</a>
+                </div>
+                <ol class="hm-mini-steps"><li><span>01</span><b>템플릿 선택</b><small>행사 전용 프레임</small></li><li><span>02</span><b>촬영</b><small>얼굴 가이드 · 자동 촬영</small></li><li><span>03</span><b>사진 선택</b><small>원본 · AI 결과</small></li><li><span>04</span><b>인화 · QR</b><small>즉석 인화 · 원본 QR</small></li></ol>
+            </div>
+            <div class="portfolio-header hm-sketch-head">
+                <h3><span>PORTFOLIO</span>포토부스 현장 스케치</h3>
+                <a href="portfolio.html?category=photobooth" class="btn-more">더보기 →</a>
+            </div>
+            <div class="portfolio-4grid">
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_1.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>기업 행사</h4><p>브랜드 프로모션</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_2.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>학교 행사</h4><p>캠퍼스 이벤트</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_3.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>지역 축제</h4><p>지역 페스티벌</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_4.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>브랜드 팝업</h4><p>팝업 스토어</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 게임 키오스크 -->
+    <section id="game" class="section bg-gray portfolio-section hm-svc" data-portfolio-category="game">
+        <div class="section-inner">
+            <div class="hm-svc-top">
+                <div class="hm-svc-intro">
+                    <span class="hm-svc-no">02</span>
+                    <span class="hero-label" style="color:var(--accent);">GAME KIOSK</span>
+                    <h2 class="section-title">발길을 멈추게 하는 <span class="text-red">게임 키오스크</span></h2>
+                    <p>초대형 터치 스크린으로 체류 시간을 늘리고, 게임이 끝나면 경품 교환권을 바로 출력합니다.</p>
+                    <a href="#quote-form" class="btn-secondary open-quote-form">게임 키오스크 상담하기 →</a>
+                </div>
+                <ol class="hm-mini-steps"><li><span>01</span><b>초대형 스크린</b><small>수직 풀화면 · 멀티 터치</small></li><li><span>02</span><b>게임 참여</b><small>남녀노소 누구나</small></li><li><span>03</span><b>체류 시간 연장</b><small>자연스러운 브랜드 각인</small></li><li><span>04</span><b>영수증 출력</b><small>경품 교환권 · 바코드</small></li></ol>
+            </div>
+            <div class="portfolio-header hm-sketch-head">
+                <h3><span>PORTFOLIO</span>게임 키오스크 현장 스케치</h3>
+                <a href="portfolio.html?category=game" class="btn-more">더보기 →</a>
+            </div>
+            <div class="portfolio-4grid">
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_1.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>기업 프로모션</h4><p>참여형 게임 이벤트</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_2.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>지역 축제</h4><p>게임 키오스크 운영</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_3.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>학교 행사</h4><p>캠퍼스 게임 이벤트</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_4.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>브랜드 팝업</h4><p>고객 참여 프로모션</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI 사주 -->
+    <section id="ai" class="section  portfolio-section hm-svc" data-portfolio-category="saju">
+        <div class="section-inner">
+            <div class="hm-svc-top">
+                <div class="hm-svc-intro">
+                    <span class="hm-svc-no">03</span>
+                    <span class="hero-label" style="color:var(--accent);">AI FORTUNE</span>
+                    <h2 class="section-title">행사장에 줄을 세우는 <span class="text-red">AI 사주</span></h2>
+                    <p>이름과 생년월일만 입력하면 AI가 사주와 오늘의 운세를 풀어 주고, 결과는 QR 저장이나 현장 인화로 가져갑니다.</p>
+                    <a href="saju.html?v=23" class="btn-secondary">AI 사주 자세히 보기 →</a>
+                </div>
+                <ol class="hm-mini-steps"><li><span>01</span><b>터치로 시작</b><small>운세 종류 선택</small></li><li><span>02</span><b>정보 입력</b><small>이름 · 생년월일 · 성별</small></li><li><span>03</span><b>AI 분석</b><small>만세력 계산 · 맞춤 풀이</small></li><li><span>04</span><b>결과 받기</b><small>QR 저장 · 현장 인화</small></li></ol>
+            </div>
+            <div class="portfolio-header hm-sketch-head">
+                <h3><span>PORTFOLIO</span>AI 사주 현장 스케치</h3>
+                <a href="portfolio.html?category=saju" class="btn-more">더보기 →</a>
+            </div>
+            <div class="portfolio-4grid">
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_1.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>기업 행사</h4><p>AI 사주 체험</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_2.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>지역 축제</h4><p>AI 운세 이벤트</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_3.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>박람회</h4><p>방문객 참여 콘텐츠</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span><img src="port_4.jpg" alt="" onerror="this.style.display='none'"></div><div class="port-text"><h4>브랜드 팝업</h4><p>맞춤형 AI 사주</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 모자이크 월 -->
+    <section id="mosaic" class="section bg-gray portfolio-section hm-svc" data-portfolio-category="mosaic">
+        <div class="section-inner">
+            <div class="hm-svc-top">
+                <div class="hm-svc-intro">
+                    <span class="hm-svc-no">04</span>
+                    <span class="hero-label" style="color:var(--accent);">MOSAIC WALL</span>
+                    <h2 class="section-title">사진이 모여 그림이 되는 <span class="text-red">모자이크 월</span></h2>
+                    <p>방문객이 QR로 올린 사진 한 장 한 장이 모여 브랜드의 대형 백월을 완성합니다.</p>
+                    <a href="mosaic.html?v=23" class="btn-secondary">모자이크 월 자세히 보기 →</a>
+                </div>
+                <ol class="hm-mini-steps"><li><span>01</span><b>QR 업로드</b><small>휴대폰으로 사진 선택</small></li><li><span>02</span><b>내 사진 찾기</b><small>뒷자리 4자리 검색</small></li><li><span>03</span><b>자리 선택</b><small>템플릿 · 벽 위치</small></li><li><span>04</span><b>2장 출력 · 부착</b><small>기념용 + 부착용</small></li></ol>
+            </div>
+            <div class="portfolio-header hm-sketch-head">
+                <h3><span>PORTFOLIO</span>모자이크 월 현장 스케치</h3>
+                <a href="portfolio.html?category=mosaic" class="btn-more">더보기 →</a>
+            </div>
+            <div class="portfolio-4grid">
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span></div><div class="port-text"><h4>브랜드 팝업</h4><p>모자이크 포토월</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span></div><div class="port-text"><h4>기업 행사</h4><p>참여형 브랜드 백월</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span></div><div class="port-text"><h4>지역 축제</h4><p>방문객 참여 포토월</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span></div><div class="port-text"><h4>박람회</h4><p>완성형 모자이크 아트</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Bottom Layout -->
+    <section id="contact" style="padding: 120px 0;">
+        <div class="contact-bottom">
+            <div class="contact-left">
+                <h2>특별한 순간을 더 특별하게<br><span class="text-red">더픽스</span>와 함께하세요</h2>
+                <p>행사의 목적과 브랜드에 맞는 최적의 렌탈 솔루션을 제안해 드립니다.<br>지금 바로 상담을 신청해 보세요!</p>
+                <a href="#quote-form" class="btn-primary open-quote-form">견적 문의 폼 작성하기</a>
+            </div>
+            <div class="contact-right">
+                <div class="contact-info-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <h5>전화 문의</h5>
+                        <p><a href="tel:01032410123">010-3241-0123</a></p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <h5>이메일 문의</h5>
+                        <p><a href="mailto:hyun6993@naver.com">hyun6993@naver.com</a></p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-details">
+                        <h5>카카오톡 상담</h5>
+                        <p>thepicks</p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">🕒</div>
+                    <div class="contact-details">
+                        <h5>상담 시간</h5>
+                        <p>09:00~20:00</p>
+                    </div>
+                </div>
+                <div class="social-links" aria-label="더픽스 소셜 미디어">
+                    <a class="social-link instagram" href="https://www.instagram.com/thepicks0123/" target="_blank" rel="noopener noreferrer" aria-label="더픽스 인스타그램 새 창에서 열기">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle class="social-dot" cx="17.5" cy="6.5" r="1"></circle></svg>
+                        <span>Instagram</span>
+                    </a>
+                    <a class="social-link blog" href="https://blog.naver.com/thepicks" target="_blank" rel="noopener noreferrer" aria-label="더픽스 네이버 블로그 새 창에서 열기">
+                        <span class="naver-mark" aria-hidden="true">N</span>
+                        <span>네이버 블로그</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="quote-modal" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle" hidden>
+        <div class="quote-modal-backdrop" data-close-modal></div>
+        <div class="quote-modal-panel">
+            <button type="button" class="modal-close" data-close-modal aria-label="견적 문의창 닫기">×</button>
+            <span class="hero-label" style="color:var(--accent);">CONTACT</span>
+            <h2 id="quoteModalTitle">견적 문의하기</h2>
+            <p class="quote-modal-guide">내용을 남겨주시면 확인 후 빠르게 연락드리겠습니다.</p>
+            <form id="quoteForm" class="quote-form">
+                <div class="form-grid">
+                    <label>담당자명 <strong>*</strong><input type="text" name="name" maxlength="30" required placeholder="성함을 입력해 주세요"></label>
+                    <label>연락처 <strong>*</strong><input type="tel" name="phone" maxlength="20" required placeholder="010-0000-0000"></label>
+                    <label>이메일<input type="email" name="email" maxlength="100" placeholder="example@naver.com"></label>
+                    <label>행사 종류 <strong>*</strong>
+                        <select name="event_type" required>
+                            <option value="">선택해 주세요</option>
+                            <option>포토부스</option><option>게임 키오스크</option><option>AI 사주</option><option>모자이크 포토월</option><option>기업·브랜드 행사</option><option>기타</option>
+                        </select>
+                    </label>
+                    <label>행사 예정일<input type="date" name="event_date"></label>
+                    <label>행사 지역<input type="text" name="location" maxlength="80" placeholder="예: 서울 강남구"></label>
+                    <label>예상 인원<input type="number" name="attendees" min="1" max="100000" placeholder="예: 300"></label>
+                    <label>예상 예산<input type="text" name="budget" maxlength="50" placeholder="예: 300만원"></label>
+                    <label class="form-full">문의 내용 <strong>*</strong><textarea name="message" maxlength="2000" rows="5" required placeholder="필요한 장비, 운영 시간 등 문의 내용을 적어 주세요."></textarea></label>
+                </div>
+                <label class="privacy-check"><input type="checkbox" name="privacy" required> 견적 상담을 위한 개인정보 수집 및 이용에 동의합니다.</label>
+                <button type="submit" class="btn-primary form-submit">견적 문의 보내기</button>
+                <p class="form-status" id="formStatus" aria-live="polite"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js?v=23" defer></script>
+
+    <script src="nav.js?v=25" defer></script>
+</body>
+</html>

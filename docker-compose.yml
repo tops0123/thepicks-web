@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        APP_VERSION: "13"
+        APP_VERSION: "22"
     container_name: thepicks-homepage
     restart: unless-stopped
     init: true
@@ -18,7 +18,7 @@ services:
       - ./uploads:/app/uploads
     environment:
       TZ: Asia/Seoul
-      APP_VERSION: "13"
+      APP_VERSION: "22"
     security_opt:
       - no-new-privileges:true
     read_only: true

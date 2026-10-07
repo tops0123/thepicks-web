@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 사주 키오스크 | THE PICKS</title>
+    <meta name="description" content="이름과 생년월일만 입력하면 AI가 사주와 오늘의 운세를 풀어주는 행사용 AI 사주 키오스크 - 더픽스">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <link rel="stylesheet" href="style.css?v=28">
+</head>
+<body>
+    <svg class="mw-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/></symbol>
+        <symbol id="i-touch" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.8-2.4L4.2 15.4a1.5 1.5 0 0 1 2.3-1.9L9 16"/></symbol>
+        <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="m21 16-5-5-9 9"/></symbol>
+        <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><rect x="9.5" y="16" width="5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></symbol>
+        <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><rect x="3" y="8" width="18" height="9" rx="2"/><rect x="7" y="14" width="10" height="7" rx="1"/><path d="M17.5 11.5h.01"/></symbol>
+        <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2A5 5 0 0 1 21.5 19"/></symbol>
+        <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8S10.5 3 8 3.5 7 8 12 8zm0 0s1.5-5 4-4.5S17 8 12 8z"/></symbol>
+        <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.8"/><circle cx="6" cy="12" r="2.8"/><circle cx="18" cy="19" r="2.8"/><path d="m8.5 10.6 7-4.2M8.5 13.4l7 4.2"/></symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M12 17V8M16 17v-7M20 17V5"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/></symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+        <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/></symbol>
+        <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7L20 8.5"/><path d="M20 3.5v5h-5"/></symbol>
+        <symbol id="i-brush" viewBox="0 0 24 24"><path d="M14.5 4.5 19.5 9.5 11 18l-5-5z"/><path d="M6 13c-2 0-3 1.5-3 3.5S2 20 2 20s3.5.5 5.5-.5S9.5 17 9 16"/><path d="m17 2 5 5"/></symbol>
+        <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.2 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.8-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="15" cy="7.5" r="1.2"/></symbol>
+        <symbol id="i-font" viewBox="0 0 24 24"><path d="M4 20 10.5 4h3L20 20M7 14h10"/></symbol>
+        <symbol id="i-tools" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8-3-3 8-8M3 21l6-6"/><path d="M9.3 6.3a4 4 0 0 1-5 5"/><path d="m3 3 6 6"/></symbol>
+        <symbol id="i-map" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+        <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01"/></symbol>
+        <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18.5h4"/></symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></symbol>
+        <symbol id="i-yinyang" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a4.5 4.5 0 0 1 0 9 4.5 4.5 0 0 0 0 9"/><circle cx="12" cy="7.5" r="1"/><circle cx="12" cy="16.5" r="1"/></symbol>
+        <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6 10h.01M9.5 10h.01M13 10h.01M16.5 10h.01M6 13.5h.01M18 13.5h.01M8.5 14h7"/></symbol>
+        <symbol id="i-wand" viewBox="0 0 24 24"><path d="m4 20 11-11M13 7l4 4"/><path d="M18 2v3M16.5 3.5h3M20.5 8v2M19.5 9h2M8 3v2M7 4h2"/></symbol>
+        <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2"/><rect x="8" y="5.5" width="8" height="4" rx="1"/><path d="M8.5 13h.01M12 13h.01M15.5 13h.01M8.5 17h.01M12 17h.01M15.5 17h.01"/></symbol>
+        <symbol id="i-userclock" viewBox="0 0 24 24"><circle cx="9" cy="7.5" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 9.5-5.8"/><circle cx="17.5" cy="17" r="4"/><path d="M17.5 15v2l1.3 1"/></symbol>
+        <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.6 6.1 6.6.5-5 4.3 1.6 6.4L12 16.4l-5.8 3.4 1.6-6.4-5-4.3 6.6-.5z"/></symbol>
+    </svg>
+    <!-- Navbar (White Theme + Dropdown) -->
+    <nav>
+        <a href="index.html#top" class="logo"><span class="logo-red">T</span>HE <span class="logo-red">P</span>ICKS</a>
+        <div class="nav-links">
+            <a href="index.html#photobooth">회사 소개</a>
+            <div class="dropdown">
+                <a href="photobooth.html?v=22" class="dropdown-toggle" aria-haspopup="true">포토부스<span class="nav-caret" aria-hidden="true"></span></a>
+                <div class="dropdown-content">
+                    <a href="photobooth.html?v=22">포토부스 소개</a>
+                    <a href="frame_basic.html">베이직 프레임</a>
+                    <a href="frame_ai.html">AI 디자인 프레임</a>
+                    <a href="frame_collage.html">콜라주 프레임</a>
+                </div>
+            </div>
+            <a href="index.html#game">게임 키오스크</a>
+            <a href="saju.html?v=23" class="is-current" aria-current="page">AI 사주</a>
+            <a href="mosaic.html?v=23">모자이크 월</a>
+            <a href="/portfolio.html" id="mainPortfolioLink">포트폴리오</a>
+            <a href="#quote-form" class="quote-btn open-quote-form">상담 문의하기</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="sj-hero">
+        <span class="sj-dot" style="top:22%;left:6%"></span><span class="sj-dot" style="top:70%;left:12%"></span><span class="sj-dot" style="top:16%;left:52%"></span><span class="sj-dot sm" style="top:84%;left:46%"></span><span class="sj-dot sm" style="top:30%;left:92%"></span>
+        <div class="sj-hero-inner">
+            <div class="sj-hero-text">
+                <span class="sj-eyebrow">행사장에 줄을 세우는 AI 운세 체험</span>
+                <h1>AI 사주<br><span>키오스크</span></h1>
+                <span class="sj-line"></span>
+                <p>이름과 생년월일만 입력하면 AI가 사주와 오늘의 운세를 풀어줍니다. <br>결과는 스마트폰 QR 저장 또는 현장 인화로 바로 받아갑니다.</p>
+                <div class="hero-btns">
+                    <a href="#quote-form" class="sj-btn-gold open-quote-form">상담 문의하기 →</a>
+                    <a href="#sj-flow" class="sj-btn-ghost">체험 흐름 보기</a>
+                </div>
+            </div>
+            <div class="sj-hero-visual">
+                <div class="sj-kiosk"><img src="images/saju/poster.jpg" alt="AI 사주 이벤트 키오스크 대기 화면"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- QUICK FACTS -->
+    <section class="sj-facts">
+        <div><svg><use href="#i-keyboard"/></svg><b>이름 · 생년월일만 입력</b><span>출생시는 몰라도 진행</span></div>
+        <div><svg><use href="#i-qr"/></svg><b>QR 저장 · 현장 인화</b><span>앱 설치 · 회원가입 없음</span></div>
+        <div><svg><use href="#i-userclock"/></svg><b>운영 인력 최소화</b><span>별도 상담 인력 불필요</span></div>
+    </section>
+
+    <!-- WHY -->
+    <section class="section">
+        <span class="hero-label sj-label">WHY AI SAJU</span>
+        <h2 class="section-title">왜 AI 사주 키오스크인가</h2>
+        <p class="section-subtitle">남녀노소 누구나 줄을 서서라도 해보는 체험</p>
+        <div class="sj-why">
+            <article><span class="sj-ico"><svg><use href="#i-users"/></svg></span><h3>관람객이 스스로<br>찾아오는 콘텐츠</h3><p>운세·사주는 연령과 성별을 가리지 않는 체험입니다. 내 이야기라서 줄을 서서라도 해보게 됩니다.</p></article>
+            <article><span class="sj-ico"><svg><use href="#i-phone"/></svg></span><h3>결과를 가져가는 순간<br>홍보가 시작</h3><p>결과지를 스마트폰에 저장하거나 인화해서 가져가고, SNS로 공유하면서 행사가 자연스럽게 알려집니다.</p></article>
+            <article><span class="sj-ico"><svg><use href="#i-userclock"/></svg></span><h3>운영 인력<br>최소화</h3><p>터치 화면 안내에 따라 손님이 직접 입력하고 결과를 받습니다. 별도 상담 인력이 필요 없습니다.</p></article>
+        </div>
+    </section>
+
+    <!-- CONTENTS (dark) -->
+    <section class="sj-dark">
+        <div class="sj-dark-inner">
+            <span class="hero-label sj-label-gold">TWO CONTENTS</span>
+            <h2 class="section-title" style="color:#fff;">두 가지 콘텐츠, 손님이 직접 선택</h2>
+            <p class="section-subtitle" style="color:#a9b3cc;">가볍게 즐기는 오늘의 운세부터 정통 사주풀이까지</p>
+            <div class="sj-contents">
+                <div class="sj-screen"><img src="images/saju/select.jpg" alt="운세 종류 선택 화면 - 오늘의 운세, 사주풀이" loading="lazy"></div>
+                <div class="sj-content-cards">
+                    <article class="sj-ccard">
+                        <span class="sj-ico gold"><svg><use href="#i-sun"/></svg></span>
+                        <div>
+                            <h3>오늘의 운세</h3>
+                            <p>오늘 날짜의 일진에 맞춰 5가지 운세를 풀이합니다. 짧고 가볍게 즐기는 체험으로 회전율이 높습니다.</p>
+                            <ul class="sj-chips"><li>총운</li><li>애정운</li><li>금전운</li><li>건강운</li><li>사업운</li></ul>
+                        </div>
+                    </article>
+                    <article class="sj-ccard">
+                        <span class="sj-ico gold"><svg><use href="#i-yinyang"/></svg></span>
+                        <div>
+                            <h3>사주풀이</h3>
+                            <p>타고난 성향, 사주 구조와 오행 균형, 추천 적성과 진로, 성장 조언을 담은 정통 사주풀이입니다. 사주 8글자(명식)를 결과지에 함께 보여줍니다.</p>
+                            <ul class="sj-chips"><li>타고난 성향</li><li>오행 균형</li><li>적성 · 진로</li><li>성장 조언</li></ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOW -->
+    <section id="sj-flow" class="section bg-gray">
+        <div class="section-inner">
+            <span class="hero-label sj-label">EXPERIENCE FLOW</span>
+            <h2 class="section-title">체험 흐름은 단 4단계</h2>
+            <p class="section-subtitle">터치 한 번으로 시작해 결과를 손에 쥐기까지</p>
+            <ol class="sj-flow">
+                <li><span class="sj-num">01</span><span class="sj-ico"><svg><use href="#i-touch"/></svg></span><h3>터치로 시작</h3><p>대기 화면을 터치하고<br>운세 종류를 선택</p></li>
+                <li><span class="sj-num">02</span><span class="sj-ico"><svg><use href="#i-keyboard"/></svg></span><h3>정보 입력</h3><p>이름 · 생년월일 · 출생시 · 성별<br>(출생시는 몰라도 진행)</p></li>
+                <li><span class="sj-num">03</span><span class="sj-ico"><svg><use href="#i-wand"/></svg></span><h3>AI 분석</h3><p>만세력 계산 후<br>AI가 맞춤 풀이 작성</p></li>
+                <li><span class="sj-num">04</span><span class="sj-ico"><svg><use href="#i-qr"/></svg></span><h3>결과 받기</h3><p>스마트폰 QR 저장<br>또는 현장 인화 출력</p></li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- RESULT (dark) -->
+    <section class="sj-dark">
+        <div class="sj-dark-inner">
+            <span class="hero-label sj-label-gold">RESULT</span>
+            <h2 class="section-title" style="color:#fff;">결과는 두 가지 방식으로 제공</h2>
+            <p class="section-subtitle" style="color:#a9b3cc;">손님이 원하는 방식으로 바로 가져갑니다</p>
+            <div class="sj-results">
+                <div class="sj-result-imgs">
+                    <figure><img src="images/saju/result_mobile.jpg" alt="스마트폰 결과 페이지 예시" loading="lazy"><figcaption>스마트폰 결과</figcaption></figure>
+                    <figure><img src="images/saju/result_print.jpg" alt="인화 결과지 예시" loading="lazy"><figcaption>인화 결과지</figcaption></figure>
+                </div>
+                <div class="sj-content-cards">
+                    <article class="sj-ccard">
+                        <span class="sj-ico gold"><svg><use href="#i-qr"/></svg></span>
+                        <div><h3>스마트폰 QR 저장</h3><p>화면의 QR을 찍으면 결과 페이지가 열리고 고화질 결과지를 바로 저장합니다. 앱 설치나 회원가입이 필요 없습니다.</p></div>
+                    </article>
+                    <article class="sj-ccard">
+                        <span class="sj-ico gold"><svg><use href="#i-print"/></svg></span>
+                        <div><h3>현장 인화 출력</h3><p>포토 프린터(DNP)로 인화지에 출력하거나, 영수증 프린터로 간단히 출력합니다. 출력과 QR을 함께 제공할 수도 있습니다.</p></div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="section">
+        <span class="hero-label sj-label">TRUST</span>
+        <h2 class="section-title">믿고 맡길 수 있는 이유</h2>
+        <p class="section-subtitle">정확한 계산, 끊기지 않는 운영, 행사에 맞춘 디자인</p>
+        <div class="sj-trust">
+            <article><span class="sj-ico"><svg><use href="#i-calc"/></svg></span><div><h3>정확한 사주 명식</h3><p>사주 8글자는 AI가 추측하지 않고 프로그램이 만세력(입춘·절기 기준)으로 직접 계산합니다.</p></div></article>
+            <article><span class="sj-ico"><svg><use href="#i-repeat"/></svg></span><div><h3>멈추지 않는 AI</h3><p>AI 모델이 바뀌거나 종료돼도 사용 가능한 최신 모델로 자동 전환합니다.</p></div></article>
+            <article><span class="sj-ico"><svg><use href="#i-server"/></svg></span><div><h3>자체 서버 운영</h3><p>결과는 자체 서버에 저장되어, 행사 후 키오스크를 꺼도 손님이 QR로 다시 열어볼 수 있습니다.</p></div></article>
+            <article><span class="sj-ico"><svg><use href="#i-palette"/></svg></span><div><h3>행사 맞춤 디자인</h3><p>대기 화면, 결과지 배경, 글꼴을 행사 콘셉트와 브랜드에 맞게 교체할 수 있습니다.</p></div></article>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO (AI 사주 현장 스케치) -->
+    <section id="portfolio" class="section bg-gray portfolio-section" data-portfolio-category="saju">
+        <div class="section-inner">
+            <div class="portfolio-header">
+                <div>
+                    <span class="hero-label" style="color:var(--accent); margin-bottom:5px;">PORTFOLIO</span>
+                    <h2 class="section-title" style="margin-bottom:0;">AI 사주 현장 스케치</h2>
+                </div>
+                <a href="portfolio.html?category=saju" class="btn-more">더보기 →</a>
+            </div>
+            <div class="portfolio-4grid">
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span></div><div class="port-text"><h4>기업 행사</h4><p>AI 사주 체험</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span></div><div class="port-text"><h4>지역 축제</h4><p>AI 운세 이벤트</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span></div><div class="port-text"><h4>박람회</h4><p>방문객 참여 콘텐츠</p></div></div>
+                <div class="port-item"><div class="port-img"><span class="img-placeholder">이미지 업로드</span></div><div class="port-text"><h4>브랜드 팝업</h4><p>맞춤형 AI 사주</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="sj-cta">
+        <span class="sj-dot" style="top:20%;left:10%"></span><span class="sj-dot sm" style="top:70%;left:88%"></span><span class="sj-dot sm" style="top:30%;left:80%"></span>
+        <h2>행사장에 <span>줄을 세우는</span><br>AI 운세 체험을 만나보세요</h2>
+        <p>행사 콘셉트와 브랜드에 맞춘 AI 사주 키오스크를 제안해 드립니다.</p>
+        <div class="hero-btns" style="justify-content:center;">
+            <a href="#quote-form" class="sj-btn-gold open-quote-form">견적 문의하기 →</a>
+            <a href="tel:01032410123" class="sj-btn-ghost">010-3241-0123</a>
+        </div>
+    </section>
+
+    <div class="quote-modal" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle" hidden>
+        <div class="quote-modal-backdrop" data-close-modal></div>
+        <div class="quote-modal-panel">
+            <button type="button" class="modal-close" data-close-modal aria-label="견적 문의창 닫기">×</button>
+            <span class="hero-label" style="color:var(--accent);">CONTACT</span>
+            <h2 id="quoteModalTitle">견적 문의하기</h2>
+            <p class="quote-modal-guide">내용을 남겨주시면 확인 후 빠르게 연락드리겠습니다.</p>
+            <form id="quoteForm" class="quote-form">
+                <div class="form-grid">
+                    <label>담당자명 <strong>*</strong><input type="text" name="name" maxlength="30" required placeholder="성함을 입력해 주세요"></label>
+                    <label>연락처 <strong>*</strong><input type="tel" name="phone" maxlength="20" required placeholder="010-0000-0000"></label>
+                    <label>이메일<input type="email" name="email" maxlength="100" placeholder="example@naver.com"></label>
+                    <label>행사 종류 <strong>*</strong>
+                        <select name="event_type" required>
+                            <option value="">선택해 주세요</option>
+                            <option>포토부스</option><option>게임 키오스크</option><option selected>AI 사주</option><option>모자이크 포토월</option><option>기업·브랜드 행사</option><option>기타</option>
+                        </select>
+                    </label>
+                    <label>행사 예정일<input type="date" name="event_date"></label>
+                    <label>행사 지역<input type="text" name="location" maxlength="80" placeholder="예: 서울 강남구"></label>
+                    <label>예상 인원<input type="number" name="attendees" min="1" max="100000" placeholder="예: 300"></label>
+                    <label>예상 예산<input type="text" name="budget" maxlength="50" placeholder="예: 300만원"></label>
+                    <label class="form-full">문의 내용 <strong>*</strong><textarea name="message" maxlength="2000" rows="5" required placeholder="필요한 장비, 운영 시간 등 문의 내용을 적어 주세요."></textarea></label>
+                </div>
+                <label class="privacy-check"><input type="checkbox" name="privacy" required> 견적 상담을 위한 개인정보 수집 및 이용에 동의합니다.</label>
+                <button type="submit" class="btn-primary form-submit">견적 문의 보내기</button>
+                <p class="form-status" id="formStatus" aria-live="polite"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js?v=23" defer></script>
+    <script src="nav.js?v=25" defer></script>
+</body>
+</html>

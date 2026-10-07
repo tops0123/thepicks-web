@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE PICKS 관리자</title>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <link rel="stylesheet" href="admin.css?v=9">
+    <link rel="stylesheet" href="admin.css?v=22">
 </head>
 <body>
     <header class="admin-header">
@@ -48,6 +48,8 @@
 
             <nav class="admin-tabs" aria-label="관리 메뉴">
                 <button type="button" class="active" data-tab="site">메인 화면</button>
+                <button type="button" data-tab="service">서비스 소개</button>
+                <button type="button" data-tab="photobooth-content">포토부스 콘텐츠</button>
                 <button type="button" data-tab="frames">인화 프레임</button>
                 <button type="button" data-tab="portfolio">사진·게시글</button>
                 <button type="button" data-tab="inquiries">견적 문의</button>
@@ -74,6 +76,82 @@
                     <button type="submit" class="primary-button">문구와 슬라이드 저장</button>
                     <p id="siteStatus" class="status" aria-live="polite"></p>
                 </form>
+            </section>
+
+            <section id="tab-service" class="tab-panel" hidden>
+                <div class="panel-heading">
+                    <div><h2>포토부스 서비스 소개 사진</h2><p>새 서비스 소개 페이지에 표시할 사진 3장을 각각 교체할 수 있습니다.</p></div>
+                    <a href="photobooth.html?v=22" target="_blank" class="outline-button">소개 페이지 보기</a>
+                </div>
+                <div class="service-photo-admin">
+                    <form class="service-photo-form" data-slot="intro_image" enctype="multipart/form-data">
+                        <div><span class="service-photo-number">01</span><h3>더픽스 포토부스 소개</h3><p>서비스 철학과 전체 모습을 보여주는 가로 사진</p></div>
+                        <div class="service-photo-preview"><img data-service-preview="intro_image" alt="포토부스 소개 사진"><span>등록된 사진 없음</span></div>
+                        <label class="file-button">사진 선택<input type="file" name="image" accept="image/jpeg,image/png,image/webp" required></label>
+                        <button type="submit" class="primary-button">사진 저장</button>
+                    </form>
+                    <form class="service-photo-form" data-slot="signature_image" enctype="multipart/form-data">
+                        <div><span class="service-photo-number">02</span><h3>시그니처 포토부스</h3><p>기기와 조명이 함께 보이는 제품 사진</p></div>
+                        <div class="service-photo-preview"><img data-service-preview="signature_image" alt="시그니처 포토부스 사진"><span>등록된 사진 없음</span></div>
+                        <label class="file-button">사진 선택<input type="file" name="image" accept="image/jpeg,image/png,image/webp" required></label>
+                        <button type="submit" class="primary-button">사진 저장</button>
+                    </form>
+                    <form class="service-photo-form" data-slot="compact_image" enctype="multipart/form-data">
+                        <div><span class="service-photo-number">03</span><h3>더픽스 아카이브</h3><p>작은 공간에 설치하는 컴팩트형 제품 사진</p></div>
+                        <div class="service-photo-preview"><img data-service-preview="compact_image" alt="더픽스 아카이브 사진"><span>등록된 사진 없음</span></div>
+                        <label class="file-button">사진 선택<input type="file" name="image" accept="image/jpeg,image/png,image/webp" required></label>
+                        <button type="submit" class="primary-button">사진 저장</button>
+                    </form>
+                </div>
+                <p id="serviceStatus" class="status" aria-live="polite"></p>
+            </section>
+
+            <section id="tab-photobooth-content" class="tab-panel" hidden>
+                <div class="panel-heading">
+                    <div><h2>포토부스 페이지 콘텐츠</h2><p>촬영 화면, AI 콘텐츠, 맞춤 백월 사진을 직접 추가하고 삭제할 수 있습니다.</p></div>
+                    <a href="photobooth.html?v=22" target="_blank" class="outline-button">포토부스 페이지 보기</a>
+                </div>
+
+                <section class="content-manager-card">
+                    <div class="content-manager-copy"><span class="service-photo-number">01</span><h3>세로형 포토부스 화면</h3><p>페이지 수량 제한 없이 계속 추가할 수 있습니다. 홈페이지에서는 좌우 버튼과 확대 보기로 표시됩니다.</p></div>
+                    <form id="screenGalleryForm" class="content-upload-form" enctype="multipart/form-data">
+                        <label class="file-button">화면 사진 여러 장 선택<input type="file" name="images" accept="image/jpeg,image/png,image/webp" multiple required></label>
+                        <span id="screenUploadCount">선택된 사진 없음</span>
+                        <button type="submit" class="primary-button">선택 사진 등록</button>
+                    </form>
+                    <p id="screenGalleryStatus" class="status" aria-live="polite"></p>
+                    <div id="screenGalleryList" class="managed-photo-grid managed-screen-grid"></div>
+                </section>
+
+                <section class="content-manager-card">
+                    <div class="content-manager-copy"><span class="service-photo-number">02</span><h3>AI 콘텐츠</h3><p>콘텐츠 종류별로 최대 4장까지 등록할 수 있습니다.</p></div>
+                    <div id="aiAdminTabs" class="content-category-tabs">
+                        <button type="button" class="active" data-ai-admin-category="background">AI 배경 합성</button>
+                        <button type="button" data-ai-admin-category="beauty">AI 뷰티필터</button>
+                        <button type="button" data-ai-admin-category="webtoon">AI 웹툰</button>
+                        <button type="button" data-ai-admin-category="meme">AI 밈</button>
+                        <button type="button" data-ai-admin-category="figure">AI 3D피규어</button>
+                    </div>
+                    <form id="aiContentForm" class="content-upload-form" enctype="multipart/form-data">
+                        <input type="hidden" name="category" value="background">
+                        <label class="file-button">AI 예시 사진 선택<input type="file" name="images" accept="image/jpeg,image/png,image/webp" multiple required></label>
+                        <span id="aiUploadCount">선택된 사진 없음</span>
+                        <button type="submit" class="primary-button">선택 사진 등록</button>
+                    </form>
+                    <p id="aiContentStatus" class="status" aria-live="polite"></p>
+                    <div id="aiContentAdminList" class="managed-photo-grid"></div>
+                </section>
+
+                <section class="content-manager-card">
+                    <div class="content-manager-copy"><span class="service-photo-number">03</span><h3>맞춤 백월 제작 및 렌탈</h3><p>완성 사례와 제품 사진을 원하는 만큼 등록할 수 있습니다.</p></div>
+                    <form id="backwallGalleryForm" class="content-upload-form" enctype="multipart/form-data">
+                        <label class="file-button">백월 사진 여러 장 선택<input type="file" name="images" accept="image/jpeg,image/png,image/webp" multiple required></label>
+                        <span id="backwallUploadCount">선택된 사진 없음</span>
+                        <button type="submit" class="primary-button">선택 사진 등록</button>
+                    </form>
+                    <p id="backwallGalleryStatus" class="status" aria-live="polite"></p>
+                    <div id="backwallGalleryList" class="managed-photo-grid managed-backwall-grid"></div>
+                </section>
             </section>
 
             <section id="tab-frames" class="tab-panel" hidden>
@@ -121,7 +199,7 @@
                     <input type="hidden" name="id">
                     <div class="editor-grid">
                         <div class="fields">
-                            <label>분류<select name="category" required><option value="photobooth">포토부스</option><option value="game">게임 키오스크</option><option value="saju">AI 사주</option></select></label>
+                            <label>분류<select name="category" required><option value="photobooth">포토부스</option><option value="game">게임 키오스크</option><option value="saju">AI 사주</option><option value="mosaic">모자이크 월</option></select></label>
                             <label>글 제목<input name="title" maxlength="80" required placeholder="예: 삼성 브랜드 팝업"></label>
                             <label>짧은 설명<input name="summary" maxlength="160" required placeholder="예: 서울 코엑스 브랜드 프로모션"></label>
                         </div>
@@ -143,6 +221,7 @@
                     <button type="button" data-category="photobooth">포토부스</button>
                     <button type="button" data-category="game">게임 키오스크</button>
                     <button type="button" data-category="saju">AI 사주</button>
+                    <button type="button" data-category="mosaic">모자이크 월</button>
                 </div>
                 <div id="postList" class="post-list"></div>
             </section>
@@ -153,6 +232,6 @@
             </section>
         </section>
     </main>
-    <script src="admin.js?v=9" defer></script>
+    <script src="admin.js?v=23" defer></script>
 </body>
 </html>

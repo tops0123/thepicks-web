@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>베이직 프레임 | THE PICKS</title>
-    <link rel="stylesheet" href="style.css?v=9">
+    <link rel="stylesheet" href="style.css?v=28">
 </head>
 <body data-frame-type="basic">
     <nav>
         <a href="index.html#top" class="logo"><span class="logo-red">T</span>HE <span class="logo-red">P</span>ICKS</a>
         <div class="nav-links">
-            <div class="dropdown">
-                <a href="index.html#photobooth">포토부스 소개</a>
+            <a href="index.html#photobooth">회사 소개</a>
+            <div class="dropdown is-current">
+                <a href="photobooth.html?v=22" class="dropdown-toggle" aria-haspopup="true">포토부스<span class="nav-caret" aria-hidden="true"></span></a>
                 <div class="dropdown-content">
-                    <a href="frame_basic.html">베이직 프레임</a>
+                    <a href="photobooth.html?v=22">포토부스 소개</a>
+                    <a href="frame_basic.html" class="is-current" aria-current="page">베이직 프레임</a>
                     <a href="frame_ai.html">AI 디자인 프레임</a>
                     <a href="frame_collage.html">콜라주 프레임</a>
                 </div>
             </div>
             <a href="index.html#game">게임 키오스크</a>
-            <a href="index.html#ai">AI 사주</a>
-            <a href="/portfolio.html">포트폴리오</a>
-            <a href="index.html#contact" class="quote-btn">상담 문의하기</a>
+            <a href="saju.html?v=23">AI 사주</a>
+            <a href="mosaic.html?v=23">모자이크 월</a>
+            <a href="/portfolio.html" id="mainPortfolioLink">포트폴리오</a>
+            <a href="index.html?quote=1" class="quote-btn">상담 문의하기</a>
         </div>
     </nav>
 
@@ -76,6 +79,7 @@
             <button type="button" id="galleryNext" aria-label="다음 사진 페이지">&gt;</button>
         </div>
     </section>
-    <script src="frame-gallery.js?v=9" defer></script>
+    <script src="frame-gallery.js?v=21" defer></script>
+    <script src="nav.js?v=25" defer></script>
 </body>
 </html>

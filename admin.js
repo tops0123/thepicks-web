@@ -2,10 +2,11 @@
     'use strict';
     const $ = (selector) => document.querySelector(selector);
     const $$ = (selector) => [...document.querySelectorAll(selector)];
-    const categoryNames = { photobooth: '포토부스', game: '게임 키오스크', saju: 'AI 사주' };
-    let data = { site: {}, frames: {}, portfolio: [], inquiries: [] };
+    const categoryNames = { photobooth: '포토부스', game: '게임 키오스크', saju: 'AI 사주', mosaic: '모자이크 월' };
+    let data = { site: {}, service: {}, photobooth_page: {}, frames: {}, portfolio: [], inquiries: [] };
     let activeCategory = 'all';
     let activeFrame = 'basic';
+    let activeAiAdminCategory = 'background';
 
     async function request(url, options = {}) {
         const response = await fetch(url, { cache: 'no-store', ...options });
@@ -50,6 +51,8 @@
     async function loadData() {
         data = await request('/api/admin/data');
         fillSiteForm();
+        renderServicePhotos();
+        renderPhotoboothContent();
         renderFrameManager();
         renderPosts();
         renderInquiries();
@@ -90,6 +93,153 @@
         ['hero_eyebrow','hero_title','hero_accent','hero_description'].forEach((name) => form.elements[name].value = data.site[name] || '');
         renderHeroSlides();
     }
+
+    function renderServicePhotos() {
+        ['intro_image','signature_image','compact_image'].forEach((slot) => {
+            const image = document.querySelector(`[data-service-preview="${slot}"]`);
+            if (!image) return;
+            if (data.service?.[slot]) image.src = data.service[slot];
+            else image.removeAttribute('src');
+        });
+    }
+
+    document.querySelectorAll('.service-photo-form').forEach((form) => {
+        const input = form.querySelector('input[type="file"]');
+        const preview = form.querySelector('img');
+        bindFilePreview(input, preview);
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const button = form.querySelector('button[type="submit"]');
+            const formData = new FormData();
+            formData.append('slot', form.dataset.slot);
+            formData.append('image', input.files[0]);
+            button.disabled = true;
+            message($('#serviceStatus'), '서비스 소개 사진을 저장하고 있습니다...');
+            try {
+                data = await request('/api/admin/service-photo', { method:'POST', body:formData });
+                form.reset();
+                renderServicePhotos();
+                message($('#serviceStatus'), '서비스 소개 사진이 저장되었습니다.', 'success');
+            } catch (error) { message($('#serviceStatus'), error.message, 'error'); }
+            finally { button.disabled = false; }
+        });
+    });
+
+    const aiAdminNames = {
+        background: 'AI 배경 합성', beauty: 'AI 뷰티필터', webtoon: 'AI 웹툰', meme: 'AI 밈', figure: 'AI 3D피규어'
+    };
+
+    function pageContent() {
+        return data.photobooth_page || { screens: [], ai_content: {}, backwalls: [] };
+    }
+
+    function managedCard(item, index, kind, category = '') {
+        return `<article class="managed-photo-card" data-id="${escapeAttr(item.id)}" data-kind="${kind}" data-category="${category}"><img src="${escapeAttr(item.image)}" alt="등록 사진 ${index + 1}"><span>${String(index + 1).padStart(2, '0')}</span><button type="button" data-managed-delete aria-label="사진 삭제">×</button></article>`;
+    }
+
+    function renderManagedList(selector, gallery, kind, category = '') {
+        const list = $(selector);
+        const images = Array.isArray(gallery) ? gallery : [];
+        list.innerHTML = images.length
+            ? images.map((item, index) => managedCard(item, index, kind, category)).join('')
+            : '<div class="managed-photo-empty">등록된 사진이 없습니다.</div>';
+    }
+
+    function renderPhotoboothContent() {
+        const content = pageContent();
+        renderManagedList('#screenGalleryList', content.screens, 'screen');
+        renderManagedList('#aiContentAdminList', content.ai_content?.[activeAiAdminCategory], 'ai', activeAiAdminCategory);
+        renderManagedList('#backwallGalleryList', content.backwalls, 'backwall');
+        $('#aiContentForm').elements.category.value = activeAiAdminCategory;
+        $$('#aiAdminTabs button').forEach((button) => button.classList.toggle('active', button.dataset.aiAdminCategory === activeAiAdminCategory));
+        const aiCount = Array.isArray(content.ai_content?.[activeAiAdminCategory]) ? content.ai_content[activeAiAdminCategory].length : 0;
+        $('#aiUploadCount').textContent = `${aiAdminNames[activeAiAdminCategory]} · ${aiCount} / 4장`;
+    }
+
+    function bindMultiSelection(input, output, prefix = '') {
+        input.addEventListener('change', () => {
+            output.textContent = input.files.length ? `${prefix}${input.files.length}장 선택됨` : '선택된 사진 없음';
+        });
+    }
+
+    const screenGalleryInput = $('#screenGalleryForm input[type="file"]');
+    const aiContentInput = $('#aiContentForm input[type="file"]');
+    const backwallGalleryInput = $('#backwallGalleryForm input[type="file"]');
+    bindMultiSelection(screenGalleryInput, $('#screenUploadCount'));
+    bindMultiSelection(aiContentInput, $('#aiUploadCount'));
+    bindMultiSelection(backwallGalleryInput, $('#backwallUploadCount'));
+
+    async function uploadGalleryFiles(form, input, endpoint, statusElement, extraFields = {}) {
+        const files = [...input.files];
+        if (!files.length) return message(statusElement, '등록할 사진을 선택해 주세요.', 'error');
+        const button = form.querySelector('button[type="submit"]');
+        button.disabled = true;
+        try {
+            for (let index = 0; index < files.length; index += 1) {
+                message(statusElement, `${files.length}장 중 ${index + 1}장을 등록하고 있습니다...`);
+                const formData = new FormData();
+                Object.entries(extraFields).forEach(([name, value]) => formData.append(name, value));
+                formData.append('image', files[index]);
+                data = await request(endpoint, { method:'POST', body:formData });
+            }
+            form.reset();
+            renderPhotoboothContent();
+            message(statusElement, `${files.length}장의 사진이 등록되었습니다.`, 'success');
+        } catch (error) {
+            message(statusElement, error.message, 'error');
+            renderPhotoboothContent();
+        } finally {
+            button.disabled = false;
+        }
+    }
+
+    $('#screenGalleryForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        await uploadGalleryFiles(event.currentTarget, screenGalleryInput, '/api/admin/photobooth-screen', $('#screenGalleryStatus'));
+        $('#screenUploadCount').textContent = '선택된 사진 없음';
+    });
+
+    $('#aiAdminTabs').addEventListener('click', (event) => {
+        const button = event.target.closest('[data-ai-admin-category]');
+        if (!button) return;
+        activeAiAdminCategory = button.dataset.aiAdminCategory;
+        $('#aiContentForm').reset();
+        message($('#aiContentStatus'), '');
+        renderPhotoboothContent();
+    });
+
+    $('#aiContentForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const existing = pageContent().ai_content?.[activeAiAdminCategory] || [];
+        const files = [...aiContentInput.files];
+        if (existing.length + files.length > 4) {
+            return message($('#aiContentStatus'), `이 콘텐츠에는 ${4 - existing.length}장까지 더 등록할 수 있습니다.`, 'error');
+        }
+        await uploadGalleryFiles(event.currentTarget, aiContentInput, '/api/admin/ai-content', $('#aiContentStatus'), { category: activeAiAdminCategory });
+    });
+
+    $('#backwallGalleryForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        await uploadGalleryFiles(event.currentTarget, backwallGalleryInput, '/api/admin/backwall', $('#backwallGalleryStatus'));
+        $('#backwallUploadCount').textContent = '선택된 사진 없음';
+    });
+
+    async function deleteManagedPhoto(card) {
+        const endpoint = card.dataset.kind === 'screen' ? '/api/admin/photobooth-screen' : card.dataset.kind === 'backwall' ? '/api/admin/backwall' : '/api/admin/ai-content';
+        const categoryQuery = card.dataset.kind === 'ai' ? `&category=${encodeURIComponent(card.dataset.category)}` : '';
+        if (!confirm('이 사진을 삭제할까요?')) return;
+        data = await request(`${endpoint}?id=${encodeURIComponent(card.dataset.id)}${categoryQuery}`, { method:'DELETE' });
+        renderPhotoboothContent();
+    }
+
+    ['#screenGalleryList', '#aiContentAdminList', '#backwallGalleryList'].forEach((selector) => {
+        $(selector).addEventListener('click', async (event) => {
+            const button = event.target.closest('[data-managed-delete]');
+            if (!button) return;
+            try { await deleteManagedPhoto(button.closest('.managed-photo-card')); }
+            catch (error) { alert(error.message); }
+        });
+    });
 
     function heroSlides() {
         return Array.isArray(data.site?.hero_slides) ? data.site.hero_slides : [];
